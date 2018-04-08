@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Sesh\Lib\GuzzleHttpClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Sesh\Lib\HttpClient', function ($app) {
+            return new GuzzleHttpClient();
+        });
     }
 }
