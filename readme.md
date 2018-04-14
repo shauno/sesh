@@ -5,6 +5,7 @@ The source code for the rewritten sesh.co.za website.
 ### Install
 
 - `$ composer install`
+- `$ php artisan passport:keys`
 
 ### Setup PHPStorm IDE Helper
 
