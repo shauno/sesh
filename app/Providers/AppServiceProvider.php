@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Sesh\Lib\GuzzleHttpClient;
+use Sesh\Msw\MswClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('Sesh\Lib\HttpClient', function ($app) {
             return new GuzzleHttpClient();
+        });
+
+        $this->app->bind('Sesh\Msw\MswClient', function() {
+            return new MswClient(new GuzzleHttpClient(), getenv('MSW_API_KEY'));
         });
     }
 }

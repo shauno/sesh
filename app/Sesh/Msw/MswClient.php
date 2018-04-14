@@ -7,7 +7,6 @@ use App\MswCountry;
 use App\MswRegion;
 use App\MswSpot;
 use App\MswSurfArea;
-use function GuzzleHttp\Psr7\build_query;
 use Illuminate\Database\Eloquent\Collection;
 use Sesh\Lib\HttpClient;
 
@@ -19,11 +18,18 @@ class MswClient
     protected $client;
 
     /**
-     * @param HttpClient $client
+     * @var string
      */
-    public function __construct(HttpClient $client)
+    protected $mswApiKey;
+
+    /**
+     * @param HttpClient $client
+     * @param string $mswApiKey
+     */
+    public function __construct(HttpClient $client, string $mswApiKey)
     {
         $this->client = $client;
+        $this->mswApiKey = $mswApiKey;
     }
 
     /**
@@ -34,7 +40,7 @@ class MswClient
         $continents = new Collection();
 
         try {
-            $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.getenv('MSW_API_KEY').'/continent');
+            $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/continent');
 
             if ($response->getStatusCode() === 200) {
                 if ($body = json_decode($response->getBody()->getContents())) {
@@ -75,7 +81,7 @@ class MswClient
 
             foreach($continents as $continent) {
 
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.getenv('MSW_API_KEY').'/region?limit=-1&continent_id='.$continent->getId());
+                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/region?limit=-1&continent_id='.$continent->getId());
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -132,7 +138,7 @@ class MswClient
             $mswCountries = MswCountry::where('msw_region_id', $region->getId())->get();
 
             foreach($mswCountries as $country) {
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.getenv('MSW_API_KEY').'/country/'.$country->getId());
+                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/country/'.$country->getId());
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -187,7 +193,7 @@ class MswClient
             $mswSurfAreas = MswSurfArea::where('msw_country_id', $country->getId())->get();
 
             foreach($mswSurfAreas as $mswSurfArea) {
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.getenv('MSW_API_KEY').'/surfArea/'.$mswSurfArea->getId());
+                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/surfArea/'.$mswSurfArea->getId());
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -236,7 +242,7 @@ class MswClient
                     'limit' => -1,
                 ];
 
-                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.getenv('MSW_API_KEY').'/spot?'.build_query($args));
+                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/spot?'.http_build_query($args));
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
