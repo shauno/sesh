@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Sesh\Msw\MswClient;
 
-class MswImportContinents extends Command
+class MswImportSurfAreas extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'msw:import-continents';
+    protected $signature = 'msw:import-surf-areas {country : Country name }';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Check for new continents supported by Magic Seaweed and import them';
+    protected $description = 'Check for new surf areas supported by Magic Seaweed and import them';
 
     /**
      * @var MswClient
@@ -45,25 +45,25 @@ class MswImportContinents extends Command
      */
     public function handle()
     {
-        $continents = $this->client->importContinents();
+        $surfAreas = $this->client->importSurfAreas($this->argument('country'));
 
         $new = $updated = $unchanged = 0;
 
-        foreach ($continents as $continent) {
-            if ($continent->getChanges()) {
+        foreach ($surfAreas as $area) {
+            if ($area->getChanges()) {
                 $updated++;
-            } else if($continent->wasRecentlyCreated) {
+            } else if($area->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;
             }
         }
 
-        $this->info($new.' continents inserted');
-        $this->info($updated.' continents updated');
-        $this->info($unchanged.' continents unchanged');
+        $this->info($new.' surf areas inserted');
+        $this->info($updated.' surf areas updated');
+        $this->info($unchanged.' surf areas unchanged');
 
-        if ($continents->isEmpty()) {
+        if ($surfAreas->isEmpty()) {
             $this->error('No records returned, that\'s probably due to an error. You should probably look into that');
         }
     }
