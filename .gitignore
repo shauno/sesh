@@ -4,6 +4,8 @@
 /storage/*.key
 /vendor
 /.idea
+.phpstorm.meta.php
+_ide_helper.php
 /.vscode
 /.vagrant
 Homestead.json
