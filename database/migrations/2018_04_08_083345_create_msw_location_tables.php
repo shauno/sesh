@@ -14,13 +14,13 @@ class CreateMswLocationTables extends Migration
     public function up()
     {
         Schema::create('msw_continents', function (Blueprint $table) {
-            $table->integer('id')->unique('id');
+            $table->integer('id')->unique('id', 'msw_continents_id');
             $table->string('name');
             $table->timestamps();
         });
 
         Schema::create('msw_regions', function (Blueprint $table) {
-            $table->integer('id')->unique('id');
+            $table->integer('id')->unique();
             $table->integer('msw_continent_id');
             $table->foreign('msw_continent_id')->references('id')->on('msw_continents');
             $table->string('name');
@@ -32,7 +32,7 @@ class CreateMswLocationTables extends Migration
         });
 
         Schema::create('msw_countries', function (Blueprint $table) {
-            $table->integer('id')->unique('id');
+            $table->integer('id')->unique();
             $table->integer('msw_region_id');
             $table->foreign('msw_region_id')->references('id')->on('msw_regions');
             $table->string('name');
@@ -40,7 +40,7 @@ class CreateMswLocationTables extends Migration
         });
 
         Schema::create('msw_surf_areas', function (Blueprint $table) {
-            $table->integer('id')->unique('id');
+            $table->integer('id')->unique();
             $table->integer('msw_country_id');
             $table->foreign('msw_country_id')->references('id')->on('msw_countries');
             $table->string('name');
@@ -51,7 +51,7 @@ class CreateMswLocationTables extends Migration
         });
 
         Schema::create('msw_spots', function (Blueprint $table) {
-            $table->integer('id')->unique('id');
+            $table->integer('id')->unique();
             $table->integer('msw_surf_area_id');
             $table->foreign('msw_surf_area_id')->references('id')->on('msw_surf_areas');
             $table->string('name');
@@ -70,10 +70,10 @@ class CreateMswLocationTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('msw_continents');
-        Schema::dropIfExists('msw_regions');
-        Schema::dropIfExists('msw_countries');
-        Schema::dropIfExists('msw_surf_areas');
         Schema::dropIfExists('msw_spots');
+        Schema::dropIfExists('msw_surf_areas');
+        Schema::dropIfExists('msw_countries');
+        Schema::dropIfExists('msw_regions');
+        Schema::dropIfExists('msw_continents');
     }
 }
