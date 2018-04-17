@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Spot;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Sesh\Spots\Create;
 
 class SpotController extends Controller
@@ -29,11 +30,15 @@ class SpotController extends Controller
     {
         //TODO create a validation object to pass to CreateSpot
 
-        return $createSpot(
-            $request->get('msw_spot_id'),
-            $request->get('name'),
-            (bool)$request->get('public', false)
-        );
+        try {
+            return response($createSpot($request->only([
+                'msw_spot_id',
+                'name',
+                'public',
+            ])), 201);
+        } catch (ValidationException $exception) {
+            return response($exception->errors(), 400);
+        }
     }
 
     /**

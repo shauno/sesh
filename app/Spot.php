@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\ValidationException;
 
 /**
  * @property int $id
@@ -20,4 +21,25 @@ class Spot extends Model
         'name',
         'public',
     ];
+
+    public function save(array $options = [])
+    {
+        $validator = \Validator::make([
+            'msw_spot_id' => $this->msw_spot_id,
+            'user_id' => $this->user_id,
+            'name' => $this->name,
+            'public' => $this->public,
+        ], [
+            'msw_spot_id' => 'exists:msw_spots,id',
+            'user_id' => 'exists:users,id',
+            'name' => 'required|string',
+            'public' => 'boolean',
+        ]);
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        return parent::save();
+    }
 }

@@ -44,4 +44,22 @@ class SpotsTest extends TestCase
                 'public' => true,
             ]);
     }
+
+    public function testSpotCreationValidationErrors()
+    {
+        Passport::actingAs(
+            User::find(1),
+            []
+        );
+
+        $response = $this->post('/api/v1/spot', []);
+
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'msw_spot_id' => ['The selected msw spot id is invalid.'],
+                'name' => ['The name field is required.'],
+                'public' => ['The public field must be true or false.'],
+            ]);
+    }
 }
