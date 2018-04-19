@@ -4,6 +4,7 @@ namespace Sesh\Msw;
 
 use App\MswContinent;
 use App\MswCountry;
+use App\MswForecast;
 use App\MswRegion;
 use App\MswSpot;
 use App\MswSurfArea;
@@ -224,7 +225,7 @@ class MswClient
     }
 
     /**
-     * @param strinf $surfArea
+     * @param string $surfArea
      * @return Collection
      */
     public function importSpots(string $surfArea) : Collection
@@ -275,5 +276,69 @@ class MswClient
         }
 
         return $spots;
+    }
+
+    /**
+     * @param int $mswSpotId
+     * @return Collection
+     */
+    public function importForecast(int $mswSpotId)
+    {
+        $forecasts = new Collection();
+
+        if($mswSpot = MswSpot::find($mswSpotId)) {
+            try {
+                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/forecast/?spot_id='.$mswSpot->getId());
+
+                if ($response->getStatusCode() === 200) {
+                    if ($body = json_decode($response->getBody()->getContents())) {
+                            foreach($body as $forecast) {
+                                $model = (new MswForecast())->updateOrCreate(
+                                    [
+                                        'msw_spot_id' => $mswSpot->getId(),
+                                        'timestamp' => $forecast->timestamp,
+                                    ],
+                                    [
+                                        'msw_spot_id' => $mswSpot->getId(),
+                                        'timestamp' => $forecast->timestamp,
+                                        'localTimestamp' => $forecast->localTimestamp,
+                                        'issueTimestamp' => $forecast->issueTimestamp,
+                                        'gfsIssueTimestamp' => $forecast->gfsIssueTimestamp,
+                                        'threeHourTimeText' => $forecast->threeHourTimeText,
+
+                                        'fadedRating' => $forecast->fadedRating,
+                                        'solidRating' => $forecast->solidRating,
+
+                                        'swell_minBreakingHeight' => $forecast->swell->minBreakingHeight,
+                                        'swell_absMinBreakingHeight' => $forecast->swell->absMinBreakingHeight,
+                                        'swell_maxBreakingHeight' => $forecast->swell->maxBreakingHeight,
+                                        'swell_absMaxBreakingHeight' => $forecast->swell->absMaxBreakingHeight,
+                                        'swell_primary_height' => $forecast->swell->components->primary->height,
+                                        'swell_primary_absHeight' => $forecast->swell->components->primary->absHeight,
+                                        'swell_primary_period' => $forecast->swell->components->primary->period,
+                                        'swell_primary_direction' => $forecast->swell->components->primary->direction,
+                                        'swell_primary_compassDirection' => $forecast->swell->components->primary->compassDirection,
+
+                                        'wind_speed' => $forecast->wind->speed,
+                                        'wind_direction' => $forecast->wind->direction,
+                                        'wind_compassDirection' => $forecast->wind->compassDirection,
+                                        'wind_gusts' => $forecast->wind->gusts,
+                                        'wind_unit' => $forecast->wind->unit,
+                                        'wind_rating' => $forecast->wind->rating,
+                                        'wind_stringDirection' => $forecast->wind->stringDirection,
+                                    ]
+                                );
+
+                                $forecasts->add($model);
+                            }
+                    }
+                }
+            } catch (\Exception $e) {
+                // Blank blocks are bad, mmmkay
+            }
+
+        }
+
+        return $forecasts;
     }
 }

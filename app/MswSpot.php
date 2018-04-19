@@ -27,4 +27,8 @@ class MswSpot extends Model
         'is_big_wave',
     ];
 
+    public function getId()
+    {
+        return $this->id;
+    }
 }
