@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
              UserSeeder::class,
-             MswLocationSeeder::class,
              OauthClientSeeder::class,
+             MswLocationSeeder::class,
+             MswForecastSeeder::class,
              SpotSeeder::class,
          ]);
     }
