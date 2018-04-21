@@ -117,6 +117,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'spot_id' => 'spot',
+    ],
 
 ];

@@ -45,4 +45,24 @@ class SurfsTest extends TestCase
                 'wind_direction' => 'offshore',
             ]);
     }
+
+    public function testBlankBodyValidation()
+    {
+        Passport::actingAs(
+            User::find(1),
+            []
+        );
+
+        $response = $this->post('/api/v1/surf');
+
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                "spot_id" => ["The selected spot is invalid."],
+                "msw_forecast_id" => ["The selected msw forecast id is invalid."],
+                "swell_size" => ["The swell size must be an integer."],
+                "wind_speed" => ["The wind speed must be an integer."],
+                "wind_direction" => ["The selected wind direction is invalid."]
+            ]);
+    }
 }

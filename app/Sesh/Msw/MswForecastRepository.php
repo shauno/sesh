@@ -30,12 +30,16 @@ class MswForecastRepository
      */
     public function findForSurf(Surf $surf) : ?MswForecast
     {
-        $forecast = $this->findByDate($surf->spot->mswSpot, $surf->date_start, $surf->date_end);
+        if (!$spot = $surf->spot) {
+            return null;
+        }
+
+        $forecast = $this->findByDate($spot->mswSpot, $surf->date_start, $surf->date_end);
 
         // If there is no forecast in the range, tack on 3 hours. Forecasts are saved in 3 hour intervals so this should
         // guarantee one unless there are none in a reasonable range due to an import issue
         if ($forecast->isEmpty()) {
-            $forecast = $this->findByDate($surf->spot->mswSpot, $surf->date_start, $surf->date_end + (60*60*3));
+            $forecast = $this->findByDate($spot->mswSpot, $surf->date_start, $surf->date_end + (60*60*3));
         }
 
         return $forecast->last();
