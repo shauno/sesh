@@ -17,11 +17,6 @@ class SpotsTest extends TestCase
         $this->artisan('db:seed');
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testSpotCreation()
     {
         Passport::actingAs(
@@ -38,7 +33,6 @@ class SpotsTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJson([
-                'id' => 1,
                 'msw_spot_id' => 4625,
                 'name' => 'Doodles',
                 'public' => true,

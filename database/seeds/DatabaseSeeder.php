@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
              UserSeeder::class,
              MswLocationSeeder::class,
              OauthClientSeeder::class,
+             SpotSeeder::class,
          ]);
     }
 }

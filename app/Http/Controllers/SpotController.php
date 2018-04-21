@@ -28,8 +28,6 @@ class SpotController extends Controller
      */
     public function store(Request $request, Create $createSpot)
     {
-        //TODO create a validation object to pass to CreateSpot
-
         try {
             return response($createSpot($request->only([
                 'msw_spot_id',
