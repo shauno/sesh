@@ -35,6 +35,15 @@ class SurfsTest extends TestCase
 
         $response
             ->assertStatus(201)
+            ->assertJsonStructure([
+                'id',
+                'spot_id',
+                'date_start',
+                'date_end',
+                'swell_size',
+                'wind_speed',
+                'wind_direction',
+            ])
             ->assertJson([
                 'spot_id' => 1,
                 'date_start' => 1524326400,
@@ -63,6 +72,15 @@ class SurfsTest extends TestCase
 
         $response
             ->assertStatus(201)
+            ->assertJsonStructure([
+                'id',
+                'spot_id',
+                'date_start',
+                'date_end',
+                'swell_size',
+                'wind_speed',
+                'wind_direction',
+            ])
             ->assertJson([
                 'spot_id' => 1,
                 'date_start' => 1524326400,
@@ -91,6 +109,15 @@ class SurfsTest extends TestCase
 
         $response
             ->assertStatus(201)
+            ->assertJsonStructure([
+                'id',
+                'spot_id',
+                'date_start',
+                'date_end',
+                'swell_size',
+                'wind_speed',
+                'wind_direction',
+            ])
             ->assertJson([
                 'spot_id' => 2,
                 'date_start' => 1524326400,
@@ -119,6 +146,9 @@ class SurfsTest extends TestCase
 
         $response
             ->assertStatus(400)
+            ->assertJsonStructure([
+                'spot_id',
+            ])
             ->assertJson([
                 "spot_id" => ["The selected spot is invalid."],
             ]);
@@ -135,6 +165,13 @@ class SurfsTest extends TestCase
 
         $response
             ->assertStatus(400)
+            ->assertJsonStructure([
+                "spot_id",
+                "msw_forecast_id",
+                "swell_size",
+                "wind_speed",
+                "wind_direction",
+            ])
             ->assertJson([
                 "spot_id" => ["The selected spot is invalid."],
                 "msw_forecast_id" => ["The selected msw forecast id is invalid."],
