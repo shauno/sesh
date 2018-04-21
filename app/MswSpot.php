@@ -27,6 +27,17 @@ class MswSpot extends Model
         'is_big_wave',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mswForecasts()
+    {
+        return $this->hasMany(MswForecast::class, 'msw_spot_id', 'id');
+    }
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;

@@ -15,4 +15,5 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->middleware('auth:api')->group(function() {
     Route::resource('spot', 'SpotController');
+    Route::resource('surf', 'SurfController');
 });

@@ -22,6 +22,14 @@ class Spot extends Model
         'public',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mswSpot()
+    {
+        return $this->hasOne(MswSpot::class, 'id', 'msw_spot_id');
+    }
+
     public function save(array $options = [])
     {
         $validator = \Validator::make([
