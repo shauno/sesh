@@ -83,7 +83,7 @@ class Surf extends Model
                 function($attribute, $value, $fail) use($userId) {
                     $spot = Spot::find($value); //TODO, do we need a repo?
                     if(!$spot || (!$spot->public && $spot->user_id != $userId)) { //if it's not a valid spot, or not *your* private spot
-                        return $fail('The selected spot id is invalid.');
+                        return $fail('The selected spot is invalid.');
                     }
                 },
             ],

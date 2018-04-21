@@ -36,13 +36,91 @@ class SurfsTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJson([
-                'id' => 1,
                 'spot_id' => 1,
                 'date_start' => 1524326400,
                 'date_end' => 1524330900,
                 'swell_size' => 2,
                 'wind_speed' => 5,
                 'wind_direction' => 'offshore',
+            ]);
+    }
+
+    public function testSurfCreationWithSomeoneElsesPublicSpot()
+    {
+        Passport::actingAs(
+            User::find(2),
+            []
+        );
+
+        $response = $this->post('/api/v1/surf', [
+            'spot_id' => 1,
+            'date_start' => '2018-04-21T16:00:00.000Z',
+            'date_end' => '2018-04-21T17:15:00.000Z',
+            'swell_size' => 2,
+            'wind_speed' => 5,
+            'wind_direction' => 'offshore',
+        ]);
+
+        $response
+            ->assertStatus(201)
+            ->assertJson([
+                'spot_id' => 1,
+                'date_start' => 1524326400,
+                'date_end' => 1524330900,
+                'swell_size' => 2,
+                'wind_speed' => 5,
+                'wind_direction' => 'offshore',
+            ]);
+    }
+
+    public function testSurfCreationWithOwnPrivateSpot()
+    {
+        Passport::actingAs(
+            User::find(1),
+            []
+        );
+
+        $response = $this->post('/api/v1/surf', [
+            'spot_id' => 2,
+            'date_start' => '2018-04-21T16:00:00.000Z',
+            'date_end' => '2018-04-21T17:15:00.000Z',
+            'swell_size' => 2,
+            'wind_speed' => 5,
+            'wind_direction' => 'offshore',
+        ]);
+
+        $response
+            ->assertStatus(201)
+            ->assertJson([
+                'spot_id' => 2,
+                'date_start' => 1524326400,
+                'date_end' => 1524330900,
+                'swell_size' => 2,
+                'wind_speed' => 5,
+                'wind_direction' => 'offshore',
+            ]);
+    }
+
+    public function testSurfCreationWithSomeoneElsesPrivateSpot()
+    {
+        Passport::actingAs(
+            User::find(2),
+            []
+        );
+
+        $response = $this->post('/api/v1/surf', [
+            'spot_id' => 2,
+            'date_start' => '2018-04-21T16:00:00.000Z',
+            'date_end' => '2018-04-21T17:15:00.000Z',
+            'swell_size' => 2,
+            'wind_speed' => 5,
+            'wind_direction' => 'offshore',
+        ]);
+
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                "spot_id" => ["The selected spot is invalid."],
             ]);
     }
 
