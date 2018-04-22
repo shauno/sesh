@@ -341,4 +341,34 @@ class MswClient
 
         return $forecasts;
     }
+
+    public function autoImportForecast()
+    {
+        //Make sure the file we use to store where the we are with importing is created
+        if(!\Storage::disk('local')->exists('auto-import'))
+        {
+            file_put_contents(storage_path('app/auto-import'), '');
+        }
+
+        $nextSurfArea = null;
+        if ($lastSurfArea = \Storage::disk('local')->get('auto-import')) {
+            $nextSurfArea = MswSurfArea::where('name', '>', $lastSurfArea)
+                ->orderBy('name', 'asc')
+                ->first();
+        }
+
+        if (!$nextSurfArea) {
+            $nextSurfArea = MswSurfArea::where('name', '!=', '')
+                ->orderBy('name', 'asc')
+                ->first();
+        }
+
+        $spots = MswSpot::where('msw_surf_area_id', $nextSurfArea->id)->get();
+
+        $spots->each(function(MswSpot $mswSpot) {
+            $this->importForecast($mswSpot->id);
+        });
+
+        \Storage::disk('local')->put('auto-import', $nextSurfArea->name);
+    }
 }

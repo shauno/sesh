@@ -6,7 +6,7 @@ use App\MswSpot;
 use Illuminate\Console\Command;
 use Sesh\Msw\MswClient;
 
-class ImportMswForecast extends Command
+class MswImportForecast extends Command
 {
     /**
      * The name and signature of the console command.
