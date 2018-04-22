@@ -24,8 +24,16 @@ to `.env` and setting them is the simplest esspecially in dev.
 
 ### Import Regional Data
 
-- `$ php artisan import-continents`
-- `$ php artisan import-regions {continent}`
-- `$ php artisan import-countries {region}`
-- `$ php artisan import-surf-areas {country}`
-- `$ php artisan import-spots {surf area}`
+- `$ php artisan msw:import-continents`
+- `$ php artisan msw:import-regions {continent}`
+- `$ php artisan msw:import-countries {region}`
+- `$ php artisan msw:import-surf-areas {country}`
+- `$ php artisan msw:import-spots {surf area}`
+- `$ php artisan msw:import-forecast {spot id}`
+
+### Setup auto importing
+
+Instead of importing a spot at a time, you can run the following command on a
+schedule to batch the importing of all spots automatically
+
+- `$ php artisan msw:auto-import-forecast`
