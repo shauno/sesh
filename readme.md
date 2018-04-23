@@ -1,5 +1,7 @@
 # Sesh.co.za
 
+[![Build Status](https://travis-ci.org/shauno/sesh.svg?branch=master)](https://travis-ci.org/shauno/sesh)
+
 The source code for the rewritten sesh.co.za website.
 
 ### Install
