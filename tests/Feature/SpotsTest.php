@@ -56,4 +56,55 @@ class SpotsTest extends TestCase
                 'public' => ['The public field must be true or false.'],
             ]);
     }
+
+    public function testSpotListingIncludingOwnPrivateSpot()
+    {
+        Passport::actingAs(
+            User::find(1),
+            []
+        );
+
+        $response = $this->get('/api/v1/spot');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                [
+                    'id' => 1,
+                    'msw_spot_id' => 4625,
+                    'user_id' => 1,
+                    'name' => 'Doodles',
+                    'public' => 1,
+                ],
+                [
+                    'id' => 2,
+                    'msw_spot_id' => 4625,
+                    'user_id' => 1,
+                    'name' => 'Horse Trails',
+                    'public' => 0,
+                ],
+            ]);
+    }
+
+    public function testSpotListingIncludingOtherPublicExcludingOtherPrivate()
+    {
+        Passport::actingAs(
+            User::find(2),
+            []
+        );
+
+        $response = $this->get('/api/v1/spot');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                [
+                    'id' => 1,
+                    'msw_spot_id' => 4625,
+                    'user_id' => 1,
+                    'name' => 'Doodles',
+                    'public' => 1,
+                ],
+            ]);
+    }
 }

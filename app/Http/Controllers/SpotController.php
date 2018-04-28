@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Spot;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Sesh\Spots\Create;
+use Sesh\Spots\SpotRepository;
 
 class SpotController extends Controller
 {
@@ -14,9 +16,9 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Guard $user, SpotRepository $spotRepository)
     {
-        //
+        return $spotRepository->findForUser($user->id());
     }
 
     /**
