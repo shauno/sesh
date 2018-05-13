@@ -36,6 +36,14 @@ class MswSpot extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mswSurfArea()
+    {
+        return $this->hasOne(MswSurfArea::class, 'id', 'msw_surf_area_id');
+    }
+
+    /**
      * @return int
      */
     public function getId()

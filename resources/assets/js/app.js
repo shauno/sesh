@@ -19,10 +19,12 @@ Vue.use(VueRouter);
 
 const DashboardComponent = Vue.component('app-component', require('./components/DashboardComponent.vue'));
 const CreateSurfComponent = Vue.component('create-surf-component', require('./components/CreateSurfComponent'));
+const CreateSpotComponent = Vue.component('create-spot-component', require('./components/CreateSpotComponent'));
 
 const routes = [
     { name: 'home', path: '/home', component: DashboardComponent, props: true },
-    { name: 'surf', path: '/surf', component: CreateSurfComponent },
+    { name: 'create-surf', path: '/surfs/create', component: CreateSurfComponent, props: true },
+    { name: 'create-spot', path: '/spots/create', component: CreateSpotComponent}
 ];
 
 const router = new VueRouter({

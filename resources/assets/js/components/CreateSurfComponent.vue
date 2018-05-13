@@ -1,73 +1,80 @@
 <template>
-    <form method="POST" v-on:submit.prevent="submit()">
-
-        <div class="form-group">
-            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.spot_id }" v-model="spot">
-                <option v-for="spot in spots" v-bind:value="spot.id">
-                    {{ spot.name }}
-                </option>
-            </select>
-            <div v-if="errors.spot_id" class="invalid-feedback">
-                {{ errors.spot_id[0] }}
-            </div>
+    <div>
+        <div class="alert alert-info" v-show="flash_message">
+            {{ flash_message }}
         </div>
 
-        <div class="form-row">
-            <div class="col">
-                <input class="form-control" type="date" v-model="date">
-            </div>
-            <time-input-component label="Start" v-bind:time.sync="start_time"></time-input-component>
-            <time-input-component label="End" v-bind:time.sync="end_time"></time-input-component>
-        </div>
+        <form method="POST" v-on:submit.prevent="submit()">
 
-        <div class="form-group">
-            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.swell_size }" v-model="swell_size">
-                <option v-for="size in swell_sizes" v-bind:value="size.value">
-                    {{ size.description }}
-                </option>
-            </select>
-            <div v-if="errors.swell_size" class="invalid-feedback">
-                {{ errors.swell_size[0] }}
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col">
-                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_speed }" v-model="wind_speed">
-                    <option v-for="speed in wind_speeds" v-bind:value="speed.value">
-                        {{ speed.description }}
+            <div class="form-group">
+                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.spot_id }" v-model="spot">
+                    <option v-for="spot in spots" v-bind:value="spot.id">
+                        {{ spot.name }}
                     </option>
                 </select>
-                <div v-if="errors.wind_speed" class="invalid-feedback">
-                    {{ errors.wind_speed[0] }}
+                <div v-if="errors.spot_id" class="invalid-feedback">
+                    {{ errors.spot_id[0] }}
                 </div>
             </div>
 
-            <div class="col">
-                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_direction }" v-model="wind_direction">
-                    <option v-for="direction in wind_directions" v-bind:value="direction.value">
-                        {{ direction.description }}
+            <div class="form-row">
+                <div class="col">
+                    <input class="form-control" type="date" v-model="date">
+                </div>
+                <time-input-component label="Start" v-bind:time.sync="start_time"></time-input-component>
+                <time-input-component label="End" v-bind:time.sync="end_time"></time-input-component>
+            </div>
+
+            <div class="form-group">
+                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.swell_size }" v-model="swell_size">
+                    <option v-for="size in swell_sizes" v-bind:value="size.value">
+                        {{ size.description }}
                     </option>
                 </select>
-                <div v-if="errors.wind_direction" class="invalid-feedback">
-                    {{ errors.wind_direction[0] }}
+                <div v-if="errors.swell_size" class="invalid-feedback">
+                    {{ errors.swell_size[0] }}
                 </div>
             </div>
-        </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_speed }" v-model="wind_speed">
+                        <option v-for="speed in wind_speeds" v-bind:value="speed.value">
+                            {{ speed.description }}
+                        </option>
+                    </select>
+                    <div v-if="errors.wind_speed" class="invalid-feedback">
+                        {{ errors.wind_speed[0] }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_direction }" v-model="wind_direction">
+                        <option v-for="direction in wind_directions" v-bind:value="direction.value">
+                            {{ direction.description }}
+                        </option>
+                    </select>
+                    <div v-if="errors.wind_direction" class="invalid-feedback">
+                        {{ errors.wind_direction[0] }}
+                    </div>
+                </div>
+            </div>
 
 
-        <div class="group float-right">
-            <router-link to="/home" class="btn btn-link btn-md">Cancel</router-link>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+            <div class="group float-right">
+                <router-link :to="{name: 'home'}" class="btn btn-link btn-md">Cancel</router-link>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
 
-    </form>
+        </form>
+    </div>
 </template>
 
 <script>
     Vue.component('time-input-component', require('./TimeInputComponent'));
 
     export default {
+        props: ['flash_message', 'selected_spot_id'],
         data() {
             return {
                 swell_sizes: [
@@ -111,7 +118,12 @@
         created() {
             axios.get("/api/v1/spot")
                 .then(response => {
-                    this.spots = response.data;
+                    if (response.data.length) {
+                        this.spots = response.data;
+                        this.spot = this.selected_spot_id;
+                    }else{
+                        this.$router.push({name: 'create-spot'});
+                    }
                 });
         },
         methods: {

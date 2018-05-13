@@ -4,7 +4,7 @@
             {{ flash_message }}
         </div>
 
-        <p><router-link to="/surf" class="btn btn-primary btn-lg">Log a Surf &raquo;</router-link></p>
+        <p><router-link :to="{name: 'create-surf'}" class="btn btn-primary btn-lg">Log a Surf &raquo;</router-link></p>
     </div>
 </template>
 
