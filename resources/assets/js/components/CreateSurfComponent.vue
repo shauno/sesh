@@ -15,6 +15,9 @@
                 <div v-if="errors.spot_id" class="invalid-feedback">
                     {{ errors.spot_id[0] }}
                 </div>
+                <small class="form-text text-muted float-right">
+                    <router-link :to="{name: 'create-spot'}">Create New Spot</router-link>
+                </small>
             </div>
 
             <div class="form-row">
