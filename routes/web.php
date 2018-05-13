@@ -17,11 +17,12 @@ Route::get('/', function(\Illuminate\Contracts\Auth\Guard $user) {
     if ($user->check()) {
         return redirect('/home');
     }
+    return view('welcome');
 });
 
 Route::get('{all}', function (\Illuminate\Contracts\Auth\Guard $user) {
     if (!$user->check()) {
-        return view('welcome');
+        return redirect('/');
     }
     return view('layouts.app');
 })->where('all', '^.*');
