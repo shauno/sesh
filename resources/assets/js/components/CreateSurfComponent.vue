@@ -1,67 +1,67 @@
 <template>
-                <form method="POST" v-on:submit.prevent="submit()">
+    <form method="POST" v-on:submit.prevent="submit()">
 
-                    <div class="form-group">
-                        <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.spot_id }" v-model="spot">
-                            <option v-for="spot in spots" v-bind:value="spot.id">
-                                {{ spot.name }}
-                            </option>
-                        </select>
-                        <div v-if="errors.spot_id" class="invalid-feedback">
-                            {{ errors.spot_id[0] }}
-                        </div>
-                    </div>
+        <div class="form-group">
+            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.spot_id }" v-model="spot">
+                <option v-for="spot in spots" v-bind:value="spot.id">
+                    {{ spot.name }}
+                </option>
+            </select>
+            <div v-if="errors.spot_id" class="invalid-feedback">
+                {{ errors.spot_id[0] }}
+            </div>
+        </div>
 
-                    <div class="form-row">
-                        <div class="col">
-                            <input class="form-control" type="date" v-model="date">
-                        </div>
-                        <time-input-component label="Start" v-bind:time.sync="start_time"></time-input-component>
-                        <time-input-component label="End" v-bind:time.sync="end_time"></time-input-component>
-                    </div>
+        <div class="form-row">
+            <div class="col">
+                <input class="form-control" type="date" v-model="date">
+            </div>
+            <time-input-component label="Start" v-bind:time.sync="start_time"></time-input-component>
+            <time-input-component label="End" v-bind:time.sync="end_time"></time-input-component>
+        </div>
 
-                    <div class="form-group">
-                        <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.swell_size }" v-model="swell_size">
-                            <option v-for="size in swell_sizes" v-bind:value="size.value">
-                                {{ size.description }}
-                            </option>
-                        </select>
-                        <div v-if="errors.swell_size" class="invalid-feedback">
-                            {{ errors.swell_size[0] }}
-                        </div>
-                    </div>
+        <div class="form-group">
+            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.swell_size }" v-model="swell_size">
+                <option v-for="size in swell_sizes" v-bind:value="size.value">
+                    {{ size.description }}
+                </option>
+            </select>
+            <div v-if="errors.swell_size" class="invalid-feedback">
+                {{ errors.swell_size[0] }}
+            </div>
+        </div>
 
-                    <div class="form-row">
-                        <div class="col">
-                            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_speed }" v-model="wind_speed">
-                                <option v-for="speed in wind_speeds" v-bind:value="speed.value">
-                                    {{ speed.description }}
-                                </option>
-                            </select>
-                            <div v-if="errors.wind_speed" class="invalid-feedback">
-                                {{ errors.wind_speed[0] }}
-                            </div>
-                        </div>
+        <div class="form-row">
+            <div class="col">
+                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_speed }" v-model="wind_speed">
+                    <option v-for="speed in wind_speeds" v-bind:value="speed.value">
+                        {{ speed.description }}
+                    </option>
+                </select>
+                <div v-if="errors.wind_speed" class="invalid-feedback">
+                    {{ errors.wind_speed[0] }}
+                </div>
+            </div>
 
-                        <div class="col">
-                            <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_direction }" v-model="wind_direction">
-                                <option v-for="direction in wind_directions" v-bind:value="direction.value">
-                                    {{ direction.description }}
-                                </option>
-                            </select>
-                            <div v-if="errors.wind_direction" class="invalid-feedback">
-                                {{ errors.wind_direction[0] }}
-                            </div>
-                        </div>
-                    </div>
+            <div class="col">
+                <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_direction }" v-model="wind_direction">
+                    <option v-for="direction in wind_directions" v-bind:value="direction.value">
+                        {{ direction.description }}
+                    </option>
+                </select>
+                <div v-if="errors.wind_direction" class="invalid-feedback">
+                    {{ errors.wind_direction[0] }}
+                </div>
+            </div>
+        </div>
 
 
-                    <div class="group float-right">
-                        <router-link to="/home" class="btn btn-link btn-md">Cancel</router-link>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+        <div class="group float-right">
+            <router-link to="/home" class="btn btn-link btn-md">Cancel</router-link>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
 
-                </form>
+    </form>
 </template>
 
 <script>
