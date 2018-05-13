@@ -8,6 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router'
+Vue.use(VueRouter);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,8 +17,20 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+const DashboardComponent = Vue.component('app-component', require('./components/DashboardComponent.vue'));
+const CreateSurfComponent = Vue.component('create-surf-component', require('./components/CreateSurfComponent'));
+
+const routes = [
+    { name: 'home', path: '/home', component: DashboardComponent, props: true },
+    { name: 'surf', path: '/surf', component: CreateSurfComponent },
+];
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router
 });

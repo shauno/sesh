@@ -11,10 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::auth();
+
+Route::get('/', function(\Illuminate\Contracts\Auth\Guard $user) {
+    if ($user->check()) {
+        return redirect('/home');
+    }
 });
 
-Auth::routes();
+Route::get('{all}', function (\Illuminate\Contracts\Auth\Guard $user) {
+    if (!$user->check()) {
+        return view('welcome');
+    }
+    return view('layouts.app');
+})->where('all', '^.*');
 
-Route::get('/home', 'HomeController@index')->name('home');

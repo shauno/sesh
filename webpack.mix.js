@@ -11,16 +11,5 @@ let mix = require('laravel-mix');
  |
  */
 
-//compile to storage
-let storagePath = 'storage/app/mix/';
-mix.setPublicPath(storagePath);
-
-mix.js('resources/assets/js/app.js', storagePath);
-mix.sass('resources/assets/sass/app.scss', storagePath);
-
-//combine with vendors and move to public
-mix.scripts([
-    storagePath + 'app.js'
- ], 'public/js/app.js');
-
-mix.copy(storagePath + 'app.css', 'public/css/');
+mix.js('resources/assets/js/app.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css');
