@@ -93,7 +93,7 @@ class Surf extends Model
             'date_end' => 'date_format:U',
             'swell_size' => ['integer', 'min:0'], //TODO, what range is reasonable
             'wind_speed' => ['integer', 'min:0'],
-            'wind_direction' => 'in:onshore,cross-onshore,cross-offshore,offshore',
+            'wind_direction' => 'in:onshore,cross-onshore,cross-offshore,cross-shore,offshore',
         ]);
 
         if ($validator->fails()) {

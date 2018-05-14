@@ -4,6 +4,10 @@
             {{ flash_message }}
         </div>
 
+        <div v-if="errors.generic" class="alert alert-danger">
+            {{ errors.generic }}
+        </div>
+
         <form method="POST" v-on:submit.prevent="submit()">
 
             <div class="form-group">
@@ -140,12 +144,12 @@
                     'wind_speed': this.wind_speed,
                     'wind_direction': this.wind_direction
                 }).then(function (response) {
-                    this.$router.push({name: 'home', params: {flash_message: 'Your surf session has been logged!'}});
+                    self.$router.push({name: 'home', params: {flash_message: 'Your surf session has been logged!'}});
                 }).catch(function (error) {
                     if (error.response) {
                         self.errors = error.response.data;
                     }else{
-                        //TODO, connection issue?
+                        self.errors = {generic: 'There was a error trying to submit the form. Are you still connected to the internet?'}
                     }
                 });
             }

@@ -1,9 +1,10 @@
 <template>
     <div>
+        <div v-if="errors.generic" class="alert alert-danger">
+            {{ errors.generic }}
+        </div>
+
         <form method="POST" v-on:submit.prevent="submit()">
-            <div v-if="errors.generic" class="alert alert-danger">
-                {{ errors.generic }}
-            </div>
 
             <div class="form-group">
                 <label for="name">MSW Closet Spot for Forecast</label>
