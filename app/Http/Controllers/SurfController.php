@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Surf;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Sesh\Msw\MswForecastRepository;
 use Sesh\Surfs\Create;
+use Sesh\Surfs\SurfRepository;
 
 class SurfController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param SurfRepository $surfRepository
+     * @param Guard $user
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SurfRepository $surfRepository, Guard $user)
     {
-        //
+        return $surfRepository->findAllForUser($user, 5);
     }
 
     /**
