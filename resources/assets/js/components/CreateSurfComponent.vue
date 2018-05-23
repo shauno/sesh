@@ -77,7 +77,7 @@
 
             <div class="group float-right">
                 <router-link :to="{name: 'home'}" class="btn btn-link btn-md">Cancel</router-link>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" :disabled="submitting">{{ submitButtonText }}</button>
             </div>
 
         </form>
@@ -126,7 +126,13 @@
                 swell_size: '', //TODO. better names for list and selected values?
                 wind_speed: '',
                 wind_direction: '',
+                submitting: false,
                 errors: []
+            }
+        },
+        computed: {
+            submitButtonText() {
+                return this.submitting ? 'Uploading...' : 'Create Surf';
             }
         },
         created() {
@@ -142,6 +148,7 @@
         },
         methods: {
             submit() {
+                this.submitting = true;
                 var self = this;
                 var formData = new FormData();
                 formData.append('spot_id', this.spot);
@@ -162,6 +169,7 @@
                     }else{
                         self.errors = {generic: 'There was a error trying to submit the form. Are you still connected to the internet?'}
                     }
+                    self.submitting = false;
                 });
             }
         }
