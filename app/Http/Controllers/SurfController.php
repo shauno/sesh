@@ -41,6 +41,7 @@ class SurfController extends Controller
                 'swell_size',
                 'wind_speed',
                 'wind_direction',
+                'photo'
             ])), 201);
         } catch (ValidationException $exception) {
             return response($exception->errors(), 400);

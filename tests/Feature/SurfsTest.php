@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\UploadedFile;
 use Laravel\Passport\Passport;
+use Storage;
 use Tests\TestCase;
 
 class SurfsTest extends TestCase
@@ -51,6 +53,12 @@ class SurfsTest extends TestCase
                 'swell_size' => 2,
                 'wind_speed' => 5,
                 'wind_direction' => 'offshore',
+                'spot' => [
+                    'id' => 1,
+                    'msw_spot_id' => '4625',
+                    'msw_spot' => []
+                ],
+                'photos' => [],
             ]);
     }
 
@@ -179,5 +187,64 @@ class SurfsTest extends TestCase
                 "wind_speed" => ["The wind speed must be an integer."],
                 "wind_direction" => ["The selected wind direction is invalid."]
             ]);
+    }
+
+    public function testSurfCreationWithImageUpload()
+    {
+        Passport::actingAs(
+            User::find(1),
+            []
+        );
+
+        Storage::fake();
+
+        $photo = UploadedFile::fake()->image('rad-surf.png');
+        $response = $this->post('/api/v1/surf', [
+            'spot_id' => 1,
+            'date_start' => '2018-04-21T16:00:00.000Z',
+            'date_end' => '2018-04-21T17:15:00.000Z',
+            'swell_size' => 2,
+            'wind_speed' => 5,
+            'wind_direction' => 'offshore',
+            'photo' => $photo
+        ]);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                'id',
+                'spot_id',
+                'date_start',
+                'date_end',
+                'swell_size',
+                'wind_speed',
+                'wind_direction',
+                'spot' => [
+                    'msw_spot'
+                ],
+                'photos',
+            ])
+            ->assertJson([
+                'spot_id' => 1,
+                'date_start' => 1524326400,
+                'date_end' => 1524330900,
+                'swell_size' => 2,
+                'wind_speed' => 5,
+                'wind_direction' => 'offshore',
+                'spot' => [
+                    'msw_spot' => [
+                    ]
+                ],
+                'photos' => [
+                    [
+                        "id" => 1,
+                        "surf_id" => "1",
+                        "user_id" => "1",
+                        "path" => 'surfs/'.date('Y/m/d').'/'.$photo->hashName(),
+                    ]
+                ],
+            ]);
+
+        Storage::disk()->assertExists('surfs/'.date('Y/m/d').'/'.$photo->hashName());
     }
 }

@@ -42,6 +42,11 @@ class Surf extends Model
         return $this->hasOne(MswForecast::class, 'id', 'msw_forecast_id');
     }
 
+    public function photos()
+    {
+        return $this->hasMany(Photo::class, 'surf_id', 'id');
+    }
+
     /**
      * @param $value
      */

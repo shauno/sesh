@@ -2,8 +2,10 @@
 
 namespace Sesh\Surfs;
 
+use App\Photo;
 use App\Surf;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
 use Sesh\Msw\MswForecastRepository;
 use Sesh\Msw\MswSpotRepository;
@@ -59,8 +61,17 @@ class Create
            $surf->msw_forecast_id = $forecast->id;
         }
 
-        $surf->save();
+        if($surf->save() && isset($data['photo']) && $data['photo'] instanceof UploadedFile) { //TODO, document this, or improve it :)
+            $path = $data['photo']->store('surfs/'.date('Y/m/d'));
 
-        return $surf;
+            $surf->photos()->create(
+                [
+                    'user_id' => $this->user->id(),
+                    'path' => $path,
+                ]
+            );
+        }
+
+        return $surf->loadMissing(['spot', 'photos']);
     }
 }

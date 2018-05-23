@@ -67,6 +67,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="photo">
+                    <label class="custom-file-label" for="photo">Upload a Photo</label>
+                </div>
+            </div>
+
 
             <div class="group float-right">
                 <router-link :to="{name: 'home'}" class="btn btn-link btn-md">Cancel</router-link>
@@ -136,14 +143,18 @@
         methods: {
             submit() {
                 var self = this;
-                axios.post('/api/v1/surf', {
-                    'spot_id': this.spot,
-                    'date_start': new Date(this.date + ' ' + this.start_time).toISOString(),
-                    'date_end': new Date(this.date + ' ' + this.end_time).toISOString(),
-                    'swell_size': this.swell_size,
-                    'wind_speed': this.wind_speed,
-                    'wind_direction': this.wind_direction
-                }).then(function (response) {
+                var formData = new FormData();
+                formData.append('spot_id', this.spot);
+                formData.append('date_start', new Date(this.date + ' ' + this.start_time).toISOString(),);
+                formData.append('date_end', new Date(this.date + ' ' + this.end_time).toISOString());
+                formData.append('swell_size', this.swell_size);
+                formData.append('wind_speed', this.wind_speed);
+                formData.append('wind_direction', this.wind_direction);
+                formData.append('photo', document.getElementById('photo').files.length
+                    ? document.getElementById('photo').files[0]
+                    : '');
+
+                axios.post('/api/v1/surf', formData).then(function (response) {
                     self.$router.push({name: 'home', params: {flash_message: 'Your surf session has been logged!'}});
                 }).catch(function (error) {
                     if (error.response) {
