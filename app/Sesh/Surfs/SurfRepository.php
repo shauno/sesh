@@ -106,7 +106,7 @@ class SurfRepository
                 }
                 $return['matches'][$forecast_id][$spot_id]['averages'] = [
                     'swell_size' => $avg['swell_size'] / count($surfs['surfs']),
-                    'wind_speed' => $avg['wind_speed'] / count($surfs['surfs']),
+                    'wind_speed' => round($avg['wind_speed'] / count($surfs['surfs'])),
                     'average_match' => $avg['average_match'] / count($surfs['surfs']),
                 ];
             }
