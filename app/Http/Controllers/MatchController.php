@@ -16,10 +16,10 @@ class MatchController extends Controller
      */
     public function index(Request $request, Guard $user, SpotRepository $spotRepository, SurfRepository $surfRepository)
     {
-        return array_values($surfRepository->findMatches(
+        return $surfRepository->findMatches(
             $spotRepository->findForUser($user->id()),
             new \DateTime($request->get('date'))
-        ));
+        );
     }
 
     /**

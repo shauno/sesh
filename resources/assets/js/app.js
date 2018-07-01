@@ -32,6 +32,75 @@ const router = new VueRouter({
     routes: routes
 });
 
+Vue.mixin({
+    data: function() {
+        return {
+            'windSpeeds': [
+                {
+                    value: '',
+                    name: 'Wind Speed',
+                    selectable: true,
+                },
+                {
+                    value: 0,
+                    name: 'Calm',
+                    selectable: true,
+                },
+                {
+                    value: 1,
+                    name: 'Calm to Light',
+                    selectable: false,
+                },
+                {
+                    value: 2,
+                    name: 'Light',
+                    selectable: true,
+                },
+                {
+                    value: 3,
+                    name: 'Light to Moderate',
+                    selectable: false,
+                },
+                {
+                    value: 4,
+                    name: 'Moderate',
+                    selectable: true,
+                },
+                {
+                    value: 5,
+                    name: 'Moderate to Strong',
+                    selectable: false,
+                },
+                {
+                    value: 6,
+                    name: 'Strong',
+                    selectable: true,
+                },
+                {
+                    value: 7,
+                    name: 'Strong to Gale',
+                    selectable: false,
+                },
+                {
+                    value: 8,
+                    name: 'Gale',
+                    selectable: true,
+                },
+            ]
+        };
+    },
+    methods: {
+        windSpeed(speed) {
+            return this.windSpeeds[speed].name;
+        },
+        selectableWindSpeeds() {
+            return this.windSpeeds.filter(function (item) {
+                return item.selectable;
+            })
+        }
+    }
+});
+
 const app = new Vue({
     el: '#app',
     router

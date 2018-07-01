@@ -46,8 +46,8 @@
             <div class="form-row">
                 <div class="col">
                     <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_speed }" v-model="wind_speed">
-                        <option v-for="speed in wind_speeds" v-bind:value="speed.value">
-                            {{ speed.description }}
+                        <option v-for="speed in selectableWindSpeeds()" v-bind:value="speed.value">
+                            {{ speed.name }}
                         </option>
                     </select>
                     <div v-if="errors.wind_speed" class="invalid-feedback">
@@ -102,14 +102,6 @@
                     {value: 6, description: '6 ft - Overhead'},
                     {value: 8, description: '8 ft - 2ft Overhead'},
                     {value: 10, description: '10 ft - Double Overhead'}
-                ],
-                wind_speeds: [
-                    {value: '', description: 'Wind Speed'},
-                    {value: '0', description: 'Calm'},
-                    {value: '2', description: 'Light'},
-                    {value: '4', description: 'Moderate'},
-                    {value: '6', description: 'Strong'},
-                    {value: '8', description: 'Gale'},
                 ],
                 wind_directions: [
                     {value: '', description: 'Wind Direction'},
