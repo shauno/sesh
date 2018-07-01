@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int id
- * @property int mse_spot_id
+ * @property int msw_spot_id
  * @property int timestamp
  */
 
