@@ -17,29 +17,29 @@
             </tr>
             </thead>
 
-            <tbody v-for="(spots, forecast_id) in this.matches.matches">
+            <tbody v-for="(spots, timestamp) in this.matches.matches">
                 <tr>
-                    <th colspan="8">{{ getForecast(forecast_id).threeHourTimeText }}</th>
+                    <th colspan="8">{{ (new Date(timestamp*1000)).getHours()+1 }}:00</th>
                 </tr>
 
-                <tr class="match-summary table-info" v-for="(surfs, spot_id) in spots">
+                <tr class="match-summary table-info" v-for="(match, spot_id) in spots">
                     <td nowrap="nowrap"><strong>{{ getSpot(spot_id).name }}</strong></td>
-                    <td>{{ getForecast(forecast_id).swell_minBreakingHeight }}-{{ getForecast(forecast_id).swell_maxBreakingHeight }}ft</td>
+                    <td>{{ getForecast(match.forecast_id).swell_minBreakingHeight }}-{{ getForecast(match.forecast_id).swell_maxBreakingHeight }}ft</td>
                     <td nowrap="nowrap">
-                        <img src="http://cdnimages.magicseaweed.com/star_filled.png" v-for="star in new Array(getForecast(forecast_id).solidRating)" />
-                        <img src="http://cdnimages.magicseaweed.com/star_empty.png" v-for="star in new Array(getForecast(forecast_id).fadedRating)" />
+                        <img src="http://cdnimages.magicseaweed.com/star_filled.png" v-for="star in new Array(getForecast(match.forecast_id).solidRating)" />
+                        <img src="http://cdnimages.magicseaweed.com/star_empty.png" v-for="star in new Array(getForecast(match.forecast_id).fadedRating)" />
                     </td>
                     <td nowrap="nowrap" class="text-center">
-                        <span :class="getForecastSwellDirection(forecast_id)"></span><br />
-                        {{ getForecast(forecast_id).swell_primary_height }}ft @ {{ getForecast(forecast_id).swell_primary_period }}s
+                        <span :class="getForecastSwellDirection(match.forecast_id)"></span><br />
+                        {{ getForecast(match.forecast_id).swell_primary_height }}ft @ {{ getForecast(match.forecast_id).swell_primary_period }}s
                     </td>
                     <td nowrap="nowrap" class="text-center">
-                        <span :class="getForecastWindDirection(forecast_id)"></span><br />
-                        {{ getForecast(forecast_id).wind_speed }} mph
+                        <span :class="getForecastWindDirection(match.forecast_id)"></span><br />
+                        {{ getForecast(match.forecast_id).wind_speed }} mph
                     </td>
-                    <td>{{ surfs.averages.swell_size }}ft</td>
-                    <td>{{ windSpeed(surfs.averages.wind_speed) }}</td>
-                    <td>{{ Math.round(surfs.averages.average_match, 0) }}%</td>
+                    <td>{{ match.averages.swell_size }}ft</td>
+                    <td>{{ windSpeed(match.averages.wind_speed) }}</td>
+                    <td>{{ Math.round(match.averages.average_match, 0) }}%</td>
                 </tr>
             </tbody>
 
