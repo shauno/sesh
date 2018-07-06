@@ -106,9 +106,9 @@ class SurfRepository
                     $avg['average_match'] = $avg['average_match'] + $surf['average_match'];
                 }
                 $return['matches'][$timestamp][$spot_id]['averages'] = [
-                    'swell_size' => $avg['swell_size'] / count($match['surfs']),
+                    'swell_size' => round($avg['swell_size'] / count($match['surfs'])),
                     'wind_speed' => round($avg['wind_speed'] / count($match['surfs'])),
-                    'average_match' => $avg['average_match'] / count($match['surfs']),
+                    'average_match' => round($avg['average_match'] / count($match['surfs'])),
                 ];
             }
         }
