@@ -296,7 +296,7 @@ class MswClient
                                 $model = (new MswForecast())->updateOrCreate(
                                     [
                                         'msw_spot_id' => $mswSpot->getId(),
-                                        'issueTimestamp' => $forecast->issueTimestamp,
+                                        'localTimestamp' => $forecast->localTimestamp,
                                     ],
                                     [
                                         'msw_spot_id' => $mswSpot->getId(),
