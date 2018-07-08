@@ -17,6 +17,7 @@
         <td>{{ match.averages.swell_size }}ft</td>
         <td>{{ windSpeed(match.averages.wind_speed) }}</td>
         <td>{{ Math.round(match.averages.average_match, 0) }}%</td>
+        <td>{{ Object.keys(match.surfs).length }}</td>
     </tr>
 </template>
 

@@ -92,24 +92,26 @@ class SurfRepository
             $return['refs']['surfs'][$match->surf_id] = $return['refs']['surfs'][$match->surf_id] ?? Surf::with(['spot', 'mswForecast'])->find($match->surf_id);
         }
 
-        //calculate averages
-        foreach ($return['matches'] as $timestamp => $spots) {
-            foreach ($spots as $spot_id => $match) {
-                $avg = [
-                    'swell_size' => 0,
-                    'wind_speed' => 0,
-                    'average_match' => 0,
-                ];
-                foreach ($match['surfs'] as $surf_id => $surf) {
-                    $avg['swell_size'] = $avg['swell_size'] + $return['refs']['surfs'][$surf_id]->swell_size;
-                    $avg['wind_speed'] = $avg['wind_speed'] + $return['refs']['surfs'][$surf_id]->wind_speed;
-                    $avg['average_match'] = $avg['average_match'] + $surf['average_match'];
+        if ($return) {
+            //calculate averages
+            foreach ($return['matches'] as $timestamp => $spots) {
+                foreach ($spots as $spot_id => $match) {
+                    $avg = [
+                        'swell_size' => 0,
+                        'wind_speed' => 0,
+                        'average_match' => 0,
+                    ];
+                    foreach ($match['surfs'] as $surf_id => $surf) {
+                        $avg['swell_size'] = $avg['swell_size'] + $return['refs']['surfs'][$surf_id]->swell_size;
+                        $avg['wind_speed'] = $avg['wind_speed'] + $return['refs']['surfs'][$surf_id]->wind_speed;
+                        $avg['average_match'] = $avg['average_match'] + $surf['average_match'];
+                    }
+                    $return['matches'][$timestamp][$spot_id]['averages'] = [
+                        'swell_size' => round($avg['swell_size'] / count($match['surfs'])),
+                        'wind_speed' => round($avg['wind_speed'] / count($match['surfs'])),
+                        'average_match' => round($avg['average_match'] / count($match['surfs'])),
+                    ];
                 }
-                $return['matches'][$timestamp][$spot_id]['averages'] = [
-                    'swell_size' => round($avg['swell_size'] / count($match['surfs'])),
-                    'wind_speed' => round($avg['wind_speed'] / count($match['surfs'])),
-                    'average_match' => round($avg['average_match'] / count($match['surfs'])),
-                ];
             }
         }
 
