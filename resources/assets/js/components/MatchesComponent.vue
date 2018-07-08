@@ -82,6 +82,7 @@
         },
         methods: {
             findMatches: function(date) {
+                this.matches = [];
                 axios.get("/api/v1/match?date="+date)
                     .then(response => {
                         this.matches = response.data.matches;
