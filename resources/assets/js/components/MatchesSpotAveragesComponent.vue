@@ -35,12 +35,18 @@
             },
             getForecastSwellDirection(match) {
                 let classes = {'msw-swa': true};
-                classes['msw-swa-' + Math.round(this.getForecast(match).swell_primary_direction / 5) * 5] = true;
+                let dir = Math.round(this.getForecast(match).swell_primary_direction / 5) * 5;
+                //we need to rotate by 180 because the msw css is wrong :facepalm
+                dir = (dir + 180) % 360;
+                classes['msw-swa-' + dir] = true;
                 return classes;
             },
             getForecastWindDirection(match) {
                 let classes = {'msw-ssa': true};
-                classes['msw-ssa-' + Math.round(this.getForecast(match).wind_direction / 5) * 5] = true;
+                let dir = Math.round(this.getForecast(match).wind_direction / 5) * 5;
+                //we need to rotate by 180 because the msw css is wrong :facepalm
+                dir = (dir + 180) % 360;
+                classes['msw-ssa-' + dir] = true;
                 return classes;
             }
         },
