@@ -288,7 +288,7 @@ class MswClient
 
         if($mswSpot = MswSpot::find($mswSpotId)) {
             try {
-                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/forecast/?spot_id='.$mswSpot->getId());
+                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/forecast/?spot_id='.$mswSpot->getId().'&units=uk');
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
