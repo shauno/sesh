@@ -91,7 +91,7 @@ Vue.mixin({
     },
     methods: {
         windSpeed(speed) {
-            return this.windSpeeds[speed].name;
+            return this.windSpeeds[speed+1].name;
         },
         selectableWindSpeeds() {
             return this.windSpeeds.filter(function (item) {
