@@ -232,13 +232,14 @@ class SurfsTest extends TestCase
                 'wind_speed' => 5,
                 'wind_direction' => 'offshore',
                 'spot' => [
+                    'id' => 1,
                     'msw_spot' => [
+                        'id' => 4625,
                     ]
                 ],
                 'photos' => [
                     [
                         'id' => 1,
-                        'surf_id' => 1,
                         'user_id' => 1,
                         'path' => 'surfs/'.date('Y/m/d').'/'.$photo->hashName(),
                     ]

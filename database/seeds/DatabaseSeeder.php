@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
              MswLocationSeeder::class,
              MswForecastSeeder::class,
              SpotSeeder::class,
+             SurfSeeder::class,
          ]);
     }
 }
