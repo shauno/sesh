@@ -28,10 +28,10 @@ class SurfsTest extends TestCase
 
         $response = $this->post('/api/v1/surf', [
             'spot_id' => 1,
-            'date_start' => '2018-04-21T16:00:00.000Z',
-            'date_end' => '2018-04-21T17:15:00.000Z',
-            'swell_size' => 2,
-            'wind_speed' => 5,
+            'date_start' => '2018-07-01T08:00:00.000Z',
+            'date_end' => '2018-07-01T10:15:00.000Z',
+            'swell_size' => 5,
+            'wind_speed' => 2,
             'wind_direction' => 'offshore',
         ]);
 
@@ -48,14 +48,14 @@ class SurfsTest extends TestCase
             ])
             ->assertJson([
                 'spot_id' => 1,
-                'date_start' => 1524326400,
-                'date_end' => 1524330900,
-                'swell_size' => 2,
-                'wind_speed' => 5,
+                'date_start' => 1530432000,
+                'date_end' => 1530440100,
+                'swell_size' => 5,
+                'wind_speed' => 2,
                 'wind_direction' => 'offshore',
                 'spot' => [
                     'id' => 1,
-                    'msw_spot_id' => '4625',
+                    'msw_spot_id' => 4625,
                     'msw_spot' => []
                 ],
                 'photos' => [],
@@ -71,10 +71,10 @@ class SurfsTest extends TestCase
 
         $response = $this->post('/api/v1/surf', [
             'spot_id' => 1,
-            'date_start' => '2018-04-21T16:00:00.000Z',
-            'date_end' => '2018-04-21T17:15:00.000Z',
-            'swell_size' => 2,
-            'wind_speed' => 5,
+            'date_start' => '2018-07-01T08:00:00.000Z',
+            'date_end' => '2018-07-01T10:15:00.000Z',
+            'swell_size' => 5,
+            'wind_speed' => 2,
             'wind_direction' => 'offshore',
         ]);
 
@@ -91,10 +91,10 @@ class SurfsTest extends TestCase
             ])
             ->assertJson([
                 'spot_id' => 1,
-                'date_start' => 1524326400,
-                'date_end' => 1524330900,
-                'swell_size' => 2,
-                'wind_speed' => 5,
+                'date_start' => 1530432000,
+                'date_end' => 1530440100,
+                'swell_size' => 5,
+                'wind_speed' => 2,
                 'wind_direction' => 'offshore',
             ]);
     }
@@ -108,10 +108,10 @@ class SurfsTest extends TestCase
 
         $response = $this->post('/api/v1/surf', [
             'spot_id' => 2,
-            'date_start' => '2018-04-21T16:00:00.000Z',
-            'date_end' => '2018-04-21T17:15:00.000Z',
-            'swell_size' => 2,
-            'wind_speed' => 5,
+            'date_start' => '2018-07-01T08:00:00.000Z',
+            'date_end' => '2018-07-01T10:15:00.000Z',
+            'swell_size' => 4,
+            'wind_speed' => 2,
             'wind_direction' => 'offshore',
         ]);
 
@@ -128,10 +128,10 @@ class SurfsTest extends TestCase
             ])
             ->assertJson([
                 'spot_id' => 2,
-                'date_start' => 1524326400,
-                'date_end' => 1524330900,
-                'swell_size' => 2,
-                'wind_speed' => 5,
+                'date_start' => 1530432000,
+                'date_end' => 1530440100,
+                'swell_size' => 4,
+                'wind_speed' => 2,
                 'wind_direction' => 'offshore',
             ]);
     }
@@ -145,8 +145,8 @@ class SurfsTest extends TestCase
 
         $response = $this->post('/api/v1/surf', [
             'spot_id' => 2,
-            'date_start' => '2018-04-21T16:00:00.000Z',
-            'date_end' => '2018-04-21T17:15:00.000Z',
+            'date_start' => '2018-07-01T08:00:00.000Z',
+            'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 2,
             'wind_speed' => 5,
             'wind_direction' => 'offshore',
@@ -201,8 +201,8 @@ class SurfsTest extends TestCase
         $photo = UploadedFile::fake()->image('rad-surf.png');
         $response = $this->post('/api/v1/surf', [
             'spot_id' => 1,
-            'date_start' => '2018-04-21T16:00:00.000Z',
-            'date_end' => '2018-04-21T17:15:00.000Z',
+            'date_start' => '2018-07-01T08:00:00.000Z',
+            'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 2,
             'wind_speed' => 5,
             'wind_direction' => 'offshore',
@@ -226,8 +226,8 @@ class SurfsTest extends TestCase
             ])
             ->assertJson([
                 'spot_id' => 1,
-                'date_start' => 1524326400,
-                'date_end' => 1524330900,
+                'date_start' => 1530432000,
+                'date_end' => 1530440100,
                 'swell_size' => 2,
                 'wind_speed' => 5,
                 'wind_direction' => 'offshore',
@@ -237,10 +237,10 @@ class SurfsTest extends TestCase
                 ],
                 'photos' => [
                     [
-                        "id" => 1,
-                        "surf_id" => "1",
-                        "user_id" => "1",
-                        "path" => 'surfs/'.date('Y/m/d').'/'.$photo->hashName(),
+                        'id' => 1,
+                        'surf_id' => 1,
+                        'user_id' => 1,
+                        'path' => 'surfs/'.date('Y/m/d').'/'.$photo->hashName(),
                     ]
                 ],
             ]);
