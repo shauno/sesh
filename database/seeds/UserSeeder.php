@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
             'name' => 'Kelly Slater',
             'email' => 'kelly@example.com',
             'password' => Hash::make('password'),
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+            'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
 
         DB::table('users')->insert([
@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
             'name' => 'Jordy Smith',
             'email' => 'jordy@example.com',
             'password' => Hash::make('password'),
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+            'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
 
     }

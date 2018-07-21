@@ -17,8 +17,8 @@ class SpotSeeder extends Seeder
             'user_id' => 1, //Kelly Slater
             'name' => 'Doodles',
             'public' => true,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+            'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
 
         DB::table('spots')->insert([
@@ -27,8 +27,18 @@ class SpotSeeder extends Seeder
             'user_id' => 1, //Kelly Slater
             'name' => 'Horse Trails',
             'public' => false,
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+            'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+        ]);
+
+        DB::table('spots')->insert([
+            'id' => 3,
+            'msw_spot_id' => 87, //Durban
+            'user_id' => 2, //Jordy Smith
+            'name' => 'New Pier',
+            'public' => true,
+            'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
+            'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
     }
 }
