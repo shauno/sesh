@@ -7,11 +7,11 @@
             <img src="http://cdnimages.magicseaweed.com/star_empty.png" v-for="star in new Array(getForecast(match).fadedRating)" />
         </td>
         <td nowrap="nowrap" class="text-center">
-            <span :class="getForecastSwellDirection(match)"></span><br />
+            <span :class="getForecastSwellDirectionClasses(match)" :title="Math.round(this.getForecast(match).swell_primary_trueDirection)"></span><br />
             {{ getForecast(match).swell_primary_height }}ft @ {{ getForecast(match).swell_primary_period }}s
         </td>
         <td nowrap="nowrap" class="text-center">
-            <span :class="getForecastWindDirection(match)"></span><br />
+            <span :class="getForecastWindDirection(match)" :title="Math.round(this.getForecast(match).wind_trueDirection)"></span><br />
             {{ getForecast(match).wind_speed }} mph
         </td>
         <td>{{ match.averages.swell_size }}ft</td>
@@ -33,19 +33,15 @@
             getForecast(match) {
                 return this.forecasts[match.forecast_id];
             },
-            getForecastSwellDirection(match) {
+            getForecastSwellDirectionClasses(match) {
                 let classes = {'msw-swa': true};
-                let dir = Math.round(this.getForecast(match).swell_primary_direction / 5) * 5;
-                //we need to rotate by 180 because the msw css is wrong :facepalm
-                dir = (dir + 180) % 360;
+                let dir = Math.round(this.getForecast(match).swell_primary_trueDirection / 5) * 5;
                 classes['msw-swa-' + dir] = true;
                 return classes;
             },
             getForecastWindDirection(match) {
                 let classes = {'msw-ssa': true};
-                let dir = Math.round(this.getForecast(match).wind_direction / 5) * 5;
-                //we need to rotate by 180 because the msw css is wrong :facepalm
-                dir = (dir + 180) % 360;
+                let dir = Math.round(this.getForecast(match).wind_trueDirection / 5) * 5;
                 classes['msw-ssa-' + dir] = true;
                 return classes;
             }

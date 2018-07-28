@@ -317,10 +317,12 @@ class MswClient
                                         'swell_primary_absHeight' => $forecast->swell->components->primary->absHeight,
                                         'swell_primary_period' => $forecast->swell->components->primary->period,
                                         'swell_primary_direction' => $forecast->swell->components->primary->direction,
+                                        'swell_primary_trueDirection' => $forecast->swell->components->primary->trueDirection,
                                         'swell_primary_compassDirection' => $forecast->swell->components->primary->compassDirection,
 
                                         'wind_speed' => $forecast->wind->speed,
                                         'wind_direction' => $forecast->wind->direction,
+                                        'wind_trueDirection' => $forecast->wind->trueDirection,
                                         'wind_compassDirection' => $forecast->wind->compassDirection,
                                         'wind_gusts' => $forecast->wind->gusts,
                                         'wind_unit' => $forecast->wind->unit,

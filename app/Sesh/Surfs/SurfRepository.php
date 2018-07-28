@@ -53,18 +53,18 @@ class SurfRepository
               AND todays_forecasts.wind_speed >= matching_forecasts.wind_speed - 2
               AND todays_forecasts.wind_speed <= matching_forecasts.wind_speed + 2
               AND IF(
-                ((matching_forecasts.swell_primary_direction - 10) < 0) OR ((matching_forecasts.swell_primary_direction + 10) >= 0),
-                todays_forecasts.swell_primary_direction > matching_forecasts.swell_primary_direction - 10
-                  OR todays_forecasts.swell_primary_direction + 10 < matching_forecasts.swell_primary_direction + 10,
-                todays_forecasts.swell_primary_direction > matching_forecasts.swell_primary_direction - 10
-                  AND todays_forecasts.swell_primary_direction < matching_forecasts.swell_primary_direction + 10
+                ((matching_forecasts.swell_primary_trueDirection - 10) < 0) OR ((matching_forecasts.swell_primary_trueDirection + 10) >= 0),
+                todays_forecasts.swell_primary_trueDirection > matching_forecasts.swell_primary_trueDirection - 10
+                  OR todays_forecasts.swell_primary_trueDirection + 10 < matching_forecasts.swell_primary_trueDirection + 10,
+                todays_forecasts.swell_primary_trueDirection > matching_forecasts.swell_primary_trueDirection - 10
+                  AND todays_forecasts.swell_primary_trueDirection < matching_forecasts.swell_primary_trueDirection + 10
               )
               AND IF(
-                ((matching_forecasts.wind_direction - 10) < 0) OR ((matching_forecasts.wind_direction + 10) >= 0),
-                todays_forecasts.wind_direction  > matching_forecasts.wind_direction - 10
-                  OR todays_forecasts.wind_direction < matching_forecasts.wind_direction + 10,
-                todays_forecasts.wind_direction > matching_forecasts.wind_direction - 10
-                  AND todays_forecasts.wind_direction < matching_forecasts.wind_direction + 10
+                ((matching_forecasts.wind_trueDirection - 10) < 0) OR ((matching_forecasts.wind_trueDirection + 10) >= 0),
+                todays_forecasts.wind_trueDirection  > matching_forecasts.wind_trueDirection - 10
+                  OR todays_forecasts.wind_trueDirection < matching_forecasts.wind_trueDirection + 10,
+                todays_forecasts.wind_trueDirection > matching_forecasts.wind_trueDirection - 10
+                  AND todays_forecasts.wind_trueDirection < matching_forecasts.wind_trueDirection + 10
               )
             )
             JOIN surfs ON surfs.msw_forecast_id = matching_forecasts.id
