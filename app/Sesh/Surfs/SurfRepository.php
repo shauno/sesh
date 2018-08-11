@@ -45,7 +45,7 @@ class SurfRepository
               (SELECT (swell_height_match + swell_period_match + wind_speed_match) / 3) as average_match              
             FROM msw_forecasts AS todays_forecasts
             JOIN msw_forecasts AS matching_forecasts ON (
-              todays_forecasts.msw_spot_id = todays_forecasts.msw_spot_id
+              matching_forecasts.msw_spot_id = todays_forecasts.msw_spot_id
               AND todays_forecasts.swell_primary_absHeight >= matching_forecasts.swell_primary_absHeight - 2
               AND todays_forecasts.swell_primary_absHeight <= matching_forecasts.swell_primary_absHeight + 2
               AND todays_forecasts.swell_primary_period >= matching_forecasts.swell_primary_period - 2
