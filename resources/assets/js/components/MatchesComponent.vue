@@ -38,6 +38,7 @@
                     v-bind:key="spot_id"
                     v-bind:spots="spots"
                     v-bind:forecasts="forecasts"
+                    v-bind:surfs="surfs"
             ></matches-spot-averages>
         </tbody>
     </table>
