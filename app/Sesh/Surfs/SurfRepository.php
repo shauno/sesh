@@ -52,20 +52,11 @@ class SurfRepository
               AND todays_forecasts.swell_primary_period <= matching_forecasts.swell_primary_period + 2
               AND todays_forecasts.wind_speed >= matching_forecasts.wind_speed - 2
               AND todays_forecasts.wind_speed <= matching_forecasts.wind_speed + 2
-              AND IF(
-                ((matching_forecasts.swell_primary_trueDirection - 10) < 0) OR ((matching_forecasts.swell_primary_trueDirection + 10) >= 0),
-                todays_forecasts.swell_primary_trueDirection > matching_forecasts.swell_primary_trueDirection - 10
-                  OR todays_forecasts.swell_primary_trueDirection + 10 < matching_forecasts.swell_primary_trueDirection + 10,
-                todays_forecasts.swell_primary_trueDirection > matching_forecasts.swell_primary_trueDirection - 10
-                  AND todays_forecasts.swell_primary_trueDirection < matching_forecasts.swell_primary_trueDirection + 10
-              )
-              AND IF(
-                ((matching_forecasts.wind_trueDirection - 10) < 0) OR ((matching_forecasts.wind_trueDirection + 10) >= 0),
-                todays_forecasts.wind_trueDirection  > matching_forecasts.wind_trueDirection - 10
-                  OR todays_forecasts.wind_trueDirection < matching_forecasts.wind_trueDirection + 10,
-                todays_forecasts.wind_trueDirection > matching_forecasts.wind_trueDirection - 10
-                  AND todays_forecasts.wind_trueDirection < matching_forecasts.wind_trueDirection + 10
-              )
+              /*Maths FTW https://stackoverflow.com/questions/12234574/calculating-if-an-angle-is-between-two-angles/12234633#12234633*/
+              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
+              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10
+              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
+              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10	
             )
             JOIN surfs ON surfs.msw_forecast_id = matching_forecasts.id
             JOIN spots ON spots.id = surfs.spot_id
