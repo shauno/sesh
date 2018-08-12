@@ -41,8 +41,7 @@ class SurfRepository
               todays_forecasts.localTimestamp,
               (1-abs(todays_forecasts.swell_primary_absHeight - matching_forecasts.swell_primary_absHeight) / ((todays_forecasts.swell_primary_absHeight + matching_forecasts.swell_primary_absHeight) / 2)) * 100 AS swell_height_match,
               (1-abs(todays_forecasts.swell_primary_period - matching_forecasts.swell_primary_period) / ((todays_forecasts.swell_primary_period + matching_forecasts.swell_primary_period) / 2)) * 100 AS swell_period_match,
-              (1-abs(todays_forecasts.wind_speed - matching_forecasts.wind_speed) / ((todays_forecasts.wind_speed + matching_forecasts.wind_speed) / 2)) * 100 as wind_speed_match,
-              (SELECT (swell_height_match + swell_period_match + wind_speed_match) / 3) as average_match              
+              (1-abs(todays_forecasts.wind_speed - matching_forecasts.wind_speed) / ((todays_forecasts.wind_speed + matching_forecasts.wind_speed) / 2)) * 100 as wind_speed_match
             FROM msw_forecasts AS todays_forecasts
             JOIN msw_forecasts AS matching_forecasts ON (
               matching_forecasts.msw_spot_id = todays_forecasts.msw_spot_id
@@ -56,7 +55,7 @@ class SurfRepository
               AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
               AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10
               AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
-              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10	
+              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10
             )
             JOIN surfs ON surfs.msw_forecast_id = matching_forecasts.id
             JOIN spots ON spots.id = surfs.spot_id
@@ -75,7 +74,7 @@ class SurfRepository
                 'swell_height_match' => $match->swell_height_match,
                 'swell_period_match' => $match->swell_period_match,
                 'wind_speed_match' => $match->wind_speed_match,
-                'average_match' => $match->average_match,
+                'average_match' => ($match->swell_height_match + $match->wind_speed_match + $match->wind_speed_match) / 3,
             ];
 
             $return['refs']['forecasts'][$match->id] = $return['refs']['forecasts'][$match->id] ?? MswForecast::find($match->id);
