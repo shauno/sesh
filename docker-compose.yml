@@ -25,7 +25,7 @@ services:
       - "MYSQL_PASSWORD=secret"
       - "MYSQL_ROOT_PASSWORD=secret"
     ports:
-      - 3306:3306
+      - 33066:3306
 
 volumes:
   sesh5db:
