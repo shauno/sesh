@@ -26,6 +26,12 @@ services:
       - "MYSQL_ROOT_PASSWORD=secret"
     ports:
       - 33066:3306
+  node:
+    build:
+      context: ./docker/node/
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
 
 volumes:
   sesh5db:

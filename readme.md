@@ -22,10 +22,21 @@ helper files: \
 - Browse to: \
   http://127.0.0.1:8080
 
+The `node` container will run an `npm run watch` on the project and rebuild the
+JS and CSS when changes are detected.
+
+**@TODO:** Still need to create a proper deployment pipelineso the all the
+dependencies are built for production instead of dev
+
 ### Setup Environment Variables
 
 You can set your environment vars however you choose. Copying the `.env.sample`
 to `.env` and setting them is the simplest especially in dev.
+
+### Run Test Suite
+After following the setup steps above you should be able to run the test
+suite \
+`$ docker-compose exec app vendor/bin/phpunit`
 
 ### Import Regional Data
 
