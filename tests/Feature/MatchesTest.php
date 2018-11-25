@@ -34,7 +34,24 @@ class MatchesTest extends TestCase
                 'refs' => [
                     'forecasts' => [],
                     'spots' => [],
-                    'surfs' => [],
+                    'surfs' => [
+                        1 => [
+                            'id' => 1,
+                            'spot' => [
+                                'id' => 1,
+                            ],
+                            'msw_forecast' => [
+                                'id' => 1,
+                                'msw_spot_id' => 4625,
+                            ],
+                            'photos' => [
+                                [
+                                    'id' => 1,
+                                    'surf_id' => 1
+                                ]
+                            ]
+                        ],
+                    ],
                 ],
             ]);
     }

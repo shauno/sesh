@@ -239,7 +239,7 @@ class SurfsTest extends TestCase
                 ],
                 'photos' => [
                     [
-                        'id' => 1,
+                        'id' => 3, //2 photos are created by the seed data
                         'user_id' => 1,
                         'path' => 'surfs/'.date('Y/m/d').'/'.$photo->hashName(),
                     ]

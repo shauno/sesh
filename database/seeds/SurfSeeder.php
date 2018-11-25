@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
 
 class SurfSeeder extends Seeder
 {
@@ -24,6 +25,13 @@ class SurfSeeder extends Seeder
             'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
             'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
+        DB::table('photos')->insert([
+            'id' => 1,
+            'surf_id' => 1,
+            'user_id' => 1,
+            'path' => UploadedFile::fake()->image('rad-surf.png')->store('surfs/'.date('Y/m/d')),
+        ]);
+
 
         DB::table('surfs')->insert([
             'id' => 2,
@@ -38,6 +46,13 @@ class SurfSeeder extends Seeder
             'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
             'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
+        DB::table('photos')->insert([
+            'id' => 2,
+            'surf_id' => 2,
+            'user_id' => 2,
+            'path' => UploadedFile::fake()->image('rad-surf-2.png')->store('surfs/'.date('Y/m/d')),
+        ]);
+
 
         DB::table('surfs')->insert([
             'id' => 3,

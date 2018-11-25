@@ -79,7 +79,7 @@ class SurfRepository
 
             $return['refs']['forecasts'][$match->id] = $return['refs']['forecasts'][$match->id] ?? MswForecast::find($match->id);
             $return['refs']['spots'][$match->spot_id] = $return['refs']['spots'][$match->spot_id] ?? Spot::find($match->spot_id);
-            $return['refs']['surfs'][$match->surf_id] = $return['refs']['surfs'][$match->surf_id] ?? Surf::with(['spot', 'mswForecast'])->find($match->surf_id);
+            $return['refs']['surfs'][$match->surf_id] = $return['refs']['surfs'][$match->surf_id] ?? Surf::with(['spot', 'mswForecast', 'photos'])->find($match->surf_id);
         }
 
         if ($return) {
