@@ -108,6 +108,7 @@
                     {value: 'offshore', description: 'Offshore'},
                     {value: 'cross-offshore', description: 'Cross Offshore'},
                     {value: 'cross-shore', description: 'Cross Shore'},
+                    {value: 'cross-onshore', description: 'Cross Onshore'},
                     {value: 'onshore', description: 'Onshore'},
                 ],
                 spots: [],
