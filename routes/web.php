@@ -20,6 +20,8 @@ Route::get('/', function(\Illuminate\Contracts\Auth\Guard $user) {
     return view('welcome');
 });
 
+Route::get('/photo/{photo}', 'PhotoController@render');
+
 Route::get('{all}', function (\Illuminate\Contracts\Auth\Guard $user) {
     if (!$user->check()) {
         return redirect('/');

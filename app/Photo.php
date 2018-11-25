@@ -20,6 +20,6 @@ class Photo extends Model
 
     public function surf()
     {
-        return $this->hasOne(Surf::class, 'surf_id', 'id');
+        return $this->hasOne(Surf::class, 'id', 'surf_id');
     }
 }

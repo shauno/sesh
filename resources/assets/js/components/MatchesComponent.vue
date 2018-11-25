@@ -28,7 +28,7 @@
 
         <tbody v-for="(matches, timestamp) in this.matches">
             <tr>
-                <th colspan="9">{{ (new Date(timestamp*1000)).getHours()+1 }}:00</th>
+                <th colspan="10">{{ (new Date(timestamp*1000)).getHours()+1 }}:00</th>
             </tr>
 
             <matches-spot-averages

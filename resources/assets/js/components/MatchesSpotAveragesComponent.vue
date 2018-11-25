@@ -19,6 +19,7 @@
             <td>{{ windSpeed(match.averages.wind_speed) }}</td>
             <td>{{ Math.round(match.averages.average_match, 0) }}%</td>
             <td>{{ Object.keys(match.surfs).length }}</td>
+            <td></td>
         </tr>
 
         <tr v-for="(surf, surf_id) in this.match.surfs">
@@ -40,6 +41,7 @@
             <td>{{ windSpeed(surfs[surf_id].wind_speed) }}</td>
             <td>{{ (new Date(surfs[surf_id].date_start * 1000)).toLocaleString() }}</td>
             <td>{{ (new Date(surfs[surf_id].date_end * 1000)).toLocaleString() }}</td>
+            <td v-html="photoLink(surfs[surf_id])"></td>
         </tr>
     </tbody>
 </template>
@@ -68,7 +70,16 @@
                 let dir = Math.round(forecast.wind_trueDirection / 5) * 5;
                 classes['msw-ssa-' + dir] = true;
                 return classes;
+            },
+            photoLink(surf) {
+                if (surf.photos.length) {
+                    let url = '/photo/' + surf.photos[0].id;
+                    return '<a target="_blank" href="'+url+'">Photo</a>'
+                }
+
+                return '';
             }
         },
+
     }
 </script>
