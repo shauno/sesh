@@ -25,8 +25,9 @@ helper files: \
 The `node` container will run an `npm run watch` on the project and rebuild the
 JS and CSS when changes are detected.
 
-**@TODO:** Still need to create a proper deployment pipelineso the all the
-dependencies are built for production instead of dev
+**@TODO:** Still need to create a proper deployment pipeline so the all the
+dependencies are built for production instead of dev. For now you can run: \
+- `docker-compose exec node npm run prod`
 
 ### Setup Environment Variables
 
