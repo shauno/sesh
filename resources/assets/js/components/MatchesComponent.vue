@@ -52,7 +52,12 @@
             return {
                 selectedDay: { //Yes, this is poo, I'm still figuring out this VueJS thing
                     key: (new Date()).toISOString().substr(0, 10),
-                    display: (new Date()).toISOString().substr(0, 10)
+                    display: (new Date()).toLocaleDateString('en-gb-u-ca-iso8601', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric'
+                    })
                 },
                 matches: {},
                 forecasts: {},
@@ -75,7 +80,12 @@
                     }
                     days[i] = {
                         key: today.toISOString().substr(0, 10),
-                        display: today.toISOString().substr(0, 10)
+                        display: today.toLocaleDateString('en-gb-u-ca-iso8601', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric'
+                        })
                     };
                 }
                 return days;
