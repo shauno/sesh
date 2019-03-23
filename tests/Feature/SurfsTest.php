@@ -32,7 +32,7 @@ class SurfsTest extends TestCase
             'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 5,
             'wind_speed' => 2,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 1,
         ]);
 
         $response
@@ -52,7 +52,7 @@ class SurfsTest extends TestCase
                 'date_end' => 1530440100,
                 'swell_size' => 5,
                 'wind_speed' => 2,
-                'wind_direction' => 'offshore',
+                'wind_direction' => 1,
                 'spot' => [
                     'id' => 1,
                     'msw_spot_id' => 4625,
@@ -75,7 +75,7 @@ class SurfsTest extends TestCase
             'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 5,
             'wind_speed' => 2,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 1,
         ]);
 
         $response
@@ -95,7 +95,7 @@ class SurfsTest extends TestCase
                 'date_end' => 1530440100,
                 'swell_size' => 5,
                 'wind_speed' => 2,
-                'wind_direction' => 'offshore',
+                'wind_direction' => 1,
             ]);
     }
 
@@ -112,7 +112,7 @@ class SurfsTest extends TestCase
             'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 4,
             'wind_speed' => 2,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 1,
         ]);
 
         $response
@@ -132,7 +132,7 @@ class SurfsTest extends TestCase
                 'date_end' => 1530440100,
                 'swell_size' => 4,
                 'wind_speed' => 2,
-                'wind_direction' => 'offshore',
+                'wind_direction' => 1,
             ]);
     }
 
@@ -149,7 +149,7 @@ class SurfsTest extends TestCase
             'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 2,
             'wind_speed' => 5,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 1,
         ]);
 
         $response
@@ -205,7 +205,7 @@ class SurfsTest extends TestCase
             'date_end' => '2018-07-01T10:15:00.000Z',
             'swell_size' => 2,
             'wind_speed' => 5,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 1,
             'photo' => $photo
         ]);
 
@@ -230,7 +230,7 @@ class SurfsTest extends TestCase
                 'date_end' => 1530440100,
                 'swell_size' => 2,
                 'wind_speed' => 5,
-                'wind_direction' => 'offshore',
+                'wind_direction' => 1,
                 'spot' => [
                     'id' => 1,
                     'msw_spot' => [

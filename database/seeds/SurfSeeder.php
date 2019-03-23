@@ -21,7 +21,7 @@ class SurfSeeder extends Seeder
             'date_end' => 1530432900,
             'swell_size' => 4,
             'wind_speed' => 2,
-            'wind_direction' => 'offshore',
+            'wind_direction' => 0,
             'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
             'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
@@ -42,7 +42,7 @@ class SurfSeeder extends Seeder
             'date_end' => 1530441000,
             'swell_size' => 2,
             'wind_speed' => 4,
-            'wind_direction' => 'cross-offshore',
+            'wind_direction' => 3,
             'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
             'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);
@@ -63,7 +63,7 @@ class SurfSeeder extends Seeder
             'date_end' => 1530450000,
             'swell_size' => 3,
             'wind_speed' => 2,
-            'wind_direction' => 'cross-offshore',
+            'wind_direction' => 3,
             'created_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
             'updated_at' => \Carbon\Carbon::createMidnightDate(2018, 7, 1),
         ]);

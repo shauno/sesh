@@ -57,8 +57,8 @@
 
                 <div class="col">
                     <select v-bind:class="{ 'form-control': true, 'is-invalid': errors.wind_direction }" v-model="wind_direction">
-                        <option v-for="direction in wind_directions" v-bind:value="direction.value">
-                            {{ direction.description }}
+                        <option v-for="(description, direction) in windDirections" v-bind:value="direction">
+                            {{ description }}
                         </option>
                     </select>
                     <div v-if="errors.wind_direction" class="invalid-feedback">
@@ -103,14 +103,6 @@
                     {value: 8, description: '8 ft - 2ft Overhead'},
                     {value: 10, description: '10 ft - Double Overhead'}
                 ],
-                wind_directions: [
-                    {value: '', description: 'Wind Direction'},
-                    {value: 'offshore', description: 'Offshore'},
-                    {value: 'cross-offshore', description: 'Cross Offshore'},
-                    {value: 'cross-shore', description: 'Cross Shore'},
-                    {value: 'cross-onshore', description: 'Cross Onshore'},
-                    {value: 'onshore', description: 'Onshore'},
-                ],
                 spots: [],
                 spot: '',
                 date: (new Date()).toISOString().substr(0, 10), //TODO, there must be a better way to get the date only?
@@ -118,7 +110,7 @@
                 end_time: null,
                 swell_size: '', //TODO. better names for list and selected values?
                 wind_speed: '',
-                wind_direction: '',
+                wind_direction: 0,
                 submitting: false,
                 errors: []
             }

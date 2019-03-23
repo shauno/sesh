@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
  * @property string date_end
  * @property int swell_size
  * @property int wind_speed
- * @property string wind_direction
+ * @property int wind_direction
  */
 class Surf extends Model
 {
@@ -98,7 +98,9 @@ class Surf extends Model
             'date_end' => 'date_format:U',
             'swell_size' => ['integer', 'min:0'], //TODO, what range is reasonable
             'wind_speed' => ['integer', 'min:0'],
-            'wind_direction' => 'in:onshore,cross-onshore,cross-offshore,cross-shore,offshore',
+            'wind_direction' => ['integer', 'min:0', 'max:5'],
+        ], [
+            'wind_direction.*' => 'The selected wind direction is invalid.',
         ]);
 
         if ($validator->fails()) {

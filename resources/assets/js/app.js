@@ -86,7 +86,15 @@ Vue.mixin({
                     name: 'Gale',
                     selectable: true,
                 },
-            ]
+            ],
+            'windDirections': [
+                'Wind Direction',
+                'Offshore',
+                'Cross-Offshore',
+                'Cross-Shore',
+                'Cross-Onshore',
+                'Onshore',
+            ],
         };
     },
     methods: {
@@ -97,6 +105,9 @@ Vue.mixin({
             return this.windSpeeds.filter(function (item) {
                 return item.selectable;
             })
+        },
+        windDirection(direction) {
+            return this.windDirections[direction];
         }
     }
 });
