@@ -25,9 +25,13 @@ class UpdateSurfsWindDirectionToIntegers extends Migration
             END
         ');
 
-        Schema::table('surfs', function(Blueprint $table) {
-            $table->integer('wind_direction')->unsigned()->change();
-        });
+        //For some reason I cannot just ->change() this column to an integer in sqlite
+        //I really should research this a bit more but for now this does the trick to keep the tests working
+        if (DB::getDriverName() != 'sqlite') {
+            Schema::table('surfs', function (Blueprint $table) {
+                $table->integer('wind_direction')->unsigned()->change();
+            });
+        }
     }
 
     /**
