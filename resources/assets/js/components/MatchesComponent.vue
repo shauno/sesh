@@ -1,8 +1,10 @@
 <template>
-    <table class="table table-hover">
+    <div>
+
+    <table class="table">
         <thead>
         <tr>
-            <th scope="col" colspan="9">
+            <th scope="col">
                 <h3>
                     Closest Matches
 
@@ -25,23 +27,21 @@
             </th>
         </tr>
         </thead>
-
-        <tbody v-for="(matches, timestamp) in this.matches">
-            <tr>
-                <th colspan="10">{{ (new Date(timestamp*1000)).getHours()+1 }}:00</th>
-            </tr>
-
-            <matches-spot-averages
-                    v-for="(match, spot_id) in matches"
-                    v-bind:match="match"
-                    v-bind:spot_id="spot_id"
-                    v-bind:key="spot_id"
-                    v-bind:spots="spots"
-                    v-bind:forecasts="forecasts"
-                    v-bind:surfs="surfs"
-            ></matches-spot-averages>
-        </tbody>
     </table>
+
+        <table class="table table-hover" v-for="(matches, timestamp) in this.matches">
+        <matches-spot-averages
+                v-for="(match, spot_id) in matches"
+                v-bind:timestamp="timestamp"
+                v-bind:match="match"
+                v-bind:spot_id="spot_id"
+                v-bind:key="spot_id"
+                v-bind:spots="spots"
+                v-bind:forecasts="forecasts"
+                v-bind:surfs="surfs"
+        ></matches-spot-averages>
+        </table>
+    </div>
 </template>
 
 <script>
