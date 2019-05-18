@@ -54,8 +54,8 @@ class SurfRepository
               /*Maths FTW https://stackoverflow.com/questions/12234574/calculating-if-an-angle-is-between-two-angles/12234633#12234633*/
               AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
               AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10
-              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 >= -10
-              AND (matching_forecasts.wind_trueDirection - todays_forecasts.wind_trueDirection + 180 + 360) % 360 - 180 <= 10
+              AND (matching_forecasts.swell_primary_trueDirection - todays_forecasts.swell_primary_trueDirection + 180 + 360) % 360 - 180 >= -10
+              AND (matching_forecasts.swell_primary_trueDirection - todays_forecasts.swell_primary_trueDirection + 180 + 360) % 360 - 180 <= 10
             )
             JOIN surfs ON surfs.msw_forecast_id = matching_forecasts.id
             JOIN spots ON spots.id = surfs.spot_id
