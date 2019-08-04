@@ -8,8 +8,12 @@ The source code for the rewritten sesh.co.za website.
 
 - Run composer install \
   `$ docker run --rm --interactive --tty --volume $PWD:/app composer install`
+- Build javascript dependencies
+  `$ docker-compose run node npm install`
 - Bring up the containers\
   `$ docker-compose up --build`
+- Set application environment variables however you wish. The easiest option for
+dev is to copy the `/env.sample` to `.env` and set the appropriate properties
 - Generate encryption keys for API tokens \
   `docker-compose exec app php artisan passport:keys`
 - If you're using PHPStorm, you can run the following command to generate IDE
