@@ -1,46 +1,51 @@
 <template>
     <div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">
-                <h3>
-                    Closest Matches
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <h3>
+                        Closest Matches
 
-                    <div class="dropdown float-right">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dateSelectButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ selectedDay.display }}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dateSelectButton">
-                            <a
-                                    :class="{'dropdown-item': true}"
-                                    href="#"
-                                    v-for="day in matchDays"
-                                    v-on:click="selectedDay = day"
-                            >
-                                {{ day.display }}
-                            </a>
+                        <div class="dropdown float-right">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dateSelectButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ selectedDay.display }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dateSelectButton">
+                                <a
+                                        :class="{'dropdown-item': true}"
+                                        href="#"
+                                        v-for="day in matchDays"
+                                        v-on:click="selectedDay = day"
+                                >
+                                    {{ day.display }}
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </h3>
-            </th>
-        </tr>
-        </thead>
-    </table>
-
-        <table class="table table-hover" v-for="(matches, timestamp) in this.matches">
-        <matches-spot-averages
-                v-for="(match, spot_id) in matches"
-                v-bind:timestamp="timestamp"
-                v-bind:match="match"
-                v-bind:spot_id="spot_id"
-                v-bind:key="spot_id"
-                v-bind:spots="spots"
-                v-bind:forecasts="forecasts"
-                v-bind:surfs="surfs"
-        ></matches-spot-averages>
+                    </h3>
+                </th>
+            </tr>
+            </thead>
         </table>
+
+        <div v-if="this.matches">
+            <table class="table table-hover" v-for="(matches, timestamp) in this.matches">
+            <matches-spot-averages
+                    v-for="(match, spot_id) in matches"
+                    v-bind:timestamp="timestamp"
+                    v-bind:match="match"
+                    v-bind:spot_id="spot_id"
+                    v-bind:key="spot_id"
+                    v-bind:spots="spots"
+                    v-bind:forecasts="forecasts"
+                    v-bind:surfs="surfs"
+            ></matches-spot-averages>
+            </table>
+        </div>
+        <div v-else class="alert alert-dark" role="alert">
+            No matches found
+        </div>
     </div>
 </template>
 
