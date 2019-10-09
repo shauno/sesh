@@ -49,7 +49,7 @@
                 {{ surfs[surf_id].msw_forecast.wind_speed }} mph
             </td>
             <td nowrap="nowrap">
-                {{ moment(surfs[surf_id].date_start * 1000).format('ddd D MMM') }}
+                {{ moment(surfs[surf_id].date_start * 1000).format('ddd D MMM Y') }}
                 <br />
                 {{ moment(surfs[surf_id].date_start * 1000).format('hh:mm') }}-{{ moment(surfs[surf_id].date_end * 1000).format('hh:mm') }}
             </td>
