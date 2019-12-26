@@ -69,15 +69,20 @@
 
             <div class="form-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="photo">
+                    <input type="file" class="custom-file-input" id="photo" @change="showUploadPreview($event)">
                     <label class="custom-file-label" for="photo">Upload a Photo</label>
                 </div>
             </div>
 
 
-            <div class="group float-right">
-                <router-link :to="{name: 'home'}" class="btn btn-link btn-md">Cancel</router-link>
-                <button type="submit" class="btn btn-primary" :disabled="submitting">{{ submitButtonText }}</button>
+            <div class="form-row">
+                <div class="col">
+                    <img id="photo-preview" src="">
+                </div>
+                <div class="col text-right">
+                    <router-link :to="{name: 'home'}" class="btn btn-link btn-md">Cancel</router-link>
+                    <button type="submit" class="btn btn-primary" :disabled="submitting">{{ submitButtonText }}</button>
+                </div>
             </div>
 
         </form>
@@ -132,6 +137,27 @@
                 });
         },
         methods: {
+            showUploadPreview(event) {
+                const input = event.target;
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#photo-preview').attr('src', e.target.result);
+
+                        const preview = $('#photo-preview')[0];
+                        EXIF.getData(preview, function() {
+                            switch (EXIF.getTag(this, 'Orientation')) {
+                                case 3: $(preview).css('transform', 'rotate(180deg)'); break;
+                                case 6: $(preview).css('transform', 'rotate(90deg)'); break;
+                                case 8: $(preview).css('transform', 'rotate(270deg)'); break;
+                            }
+                        });
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
             submit() {
                 this.submitting = true;
                 var self = this;
