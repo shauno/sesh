@@ -2,7 +2,6 @@ name: PHPStan
 on: [push]
 jobs:
   analyse:
-    needs: build
     name: Analyse
     runs-on: ubuntu-latest
 #    container:
