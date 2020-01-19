@@ -1,10 +1,6 @@
 name: PHPStan
 on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
   analyse:
     needs: build
     name: Analyse
@@ -14,6 +10,8 @@ jobs:
 #      volumes:
 #        - ./:/app
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Analyse
         run: |
           pwd
