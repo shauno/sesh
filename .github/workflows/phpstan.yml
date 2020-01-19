@@ -4,10 +4,10 @@ jobs:
   analyse:
     name: Analyse
     runs-on: ubuntu-latest
-    container:
-      image: adamculp/php-code-quality:latest
-      volumes:
-        - ./:/app
+#    container:
+#      image: adamculp/php-code-quality:latest
+#      volumes:
+#        - ./:/app
     steps:
       - name: Analyse
         run: |
