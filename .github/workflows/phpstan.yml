@@ -14,4 +14,5 @@ jobs:
       - name: Analyse
         run: |
           composer install
+          php artisan ide-helper:generate
           php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
