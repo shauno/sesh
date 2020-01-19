@@ -52,7 +52,7 @@ class MswImportContinents extends Command
         foreach ($continents as $continent) {
             if ($continent->getChanges()) {
                 $updated++;
-            } else if($continent->wasRecentlyCreated) {
+            } elseif ($continent->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

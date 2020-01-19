@@ -52,7 +52,7 @@ class MswImportCountries extends Command
         foreach ($countries as $country) {
             if ($country->getChanges()) {
                 $updated++;
-            } else if($country->wasRecentlyCreated) {
+            } elseif ($country->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

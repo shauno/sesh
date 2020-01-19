@@ -21,7 +21,7 @@ class SpotRepository
      */
     public function findForUser(int $userId)
     {
-        return (new Spot())->where(function($query) use ($userId) {
+        return (new Spot())->where(function ($query) use ($userId) {
             $query->where('user_id', $userId)
             ->orWhere('public', true);
         })->get();

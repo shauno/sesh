@@ -1,0 +1,17 @@
+name: PHP CS
+on: [push]
+jobs:
+  analyse:
+    name: PHP CS
+    runs-on: ubuntu-latest
+    container:
+      image: adamculp/php-code-quality:latest
+      volumes:
+        - ./:/app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: PHP CS
+        run: |
+          composer install
+          php /usr/local/lib/php-code-quality/vendor/bin/phpcs analyse app test

@@ -53,7 +53,7 @@ class MswImportForecast extends Command
         foreach ($forecast as $time) {
             if ($time->getChanges()) {
                 $updated++;
-            } else if($time->wasRecentlyCreated) {
+            } elseif ($time->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

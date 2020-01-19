@@ -80,9 +80,11 @@ class MswClient
             //TODO, get this from a repository?
             $continents = MswContinent::where('name', $continentName)->get();
 
-            foreach($continents as $continent) {
-
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/region?limit=-1&continent_id='.$continent->getId());
+            foreach ($continents as $continent) {
+                $response = $this->client->request(
+                    'GET',
+                    'http://magicseaweed.com/api/'.$this->mswApiKey.'/region?limit=-1&continent_id='.$continent->getId()
+                );
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -105,13 +107,12 @@ class MswClient
                             $regions->add($model);
 
                             foreach ($region->countries as $country) {
-                                if(!MswCountry::find($country->_id)) {
+                                if (!MswCountry::find($country->_id)) {
                                     (new MswCountry([
                                             'id' => $country->_id,
                                             'msw_region_id' => $region->_id,
                                             'name' => '', //required field, will get updated on country import
-                                        ]
-                                    ))->save();
+                                        ]))->save();
                                 }
                             }
                         }
@@ -138,8 +139,11 @@ class MswClient
             $region = MswRegion::where('name', $region)->first();
             $mswCountries = MswCountry::where('msw_region_id', $region->getId())->get();
 
-            foreach($mswCountries as $country) {
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/country/'.$country->getId());
+            foreach ($mswCountries as $country) {
+                $response = $this->client->request(
+                    'GET',
+                    'http://magicseaweed.com/api/'.$this->mswApiKey.'/country/'.$country->getId()
+                );
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -157,7 +161,7 @@ class MswClient
                             $countries->add($model);
 
                             foreach ($country->surfAreas as $area) {
-                                if(!MswSurfArea::find($area->_id)) {
+                                if (!MswSurfArea::find($area->_id)) {
                                     (new MswSurfArea([
                                             'id' => $area->_id,
                                             'msw_country_id' => $country->_id,
@@ -165,8 +169,7 @@ class MswClient
                                             'timezone' => '',
                                             'latitude' => 0,
                                             'longitude' => 0,
-                                        ]
-                                    ))->save();
+                                        ]))->save();
                                 }
                             }
                         }
@@ -193,8 +196,11 @@ class MswClient
             $country = MswCountry::where('name', $country)->first();
             $mswSurfAreas = MswSurfArea::where('msw_country_id', $country->getId())->get();
 
-            foreach($mswSurfAreas as $mswSurfArea) {
-                $response = $this->client->request('GET', 'http://magicseaweed.com/api/'.$this->mswApiKey.'/surfArea/'.$mswSurfArea->getId());
+            foreach ($mswSurfAreas as $mswSurfArea) {
+                $response = $this->client->request(
+                    'GET',
+                    'http://magicseaweed.com/api/'.$this->mswApiKey.'/surfArea/'.$mswSurfArea->getId()
+                );
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
@@ -207,8 +213,8 @@ class MswClient
                                     'id' => $surfArea->_id,
                                     'name' => $surfArea->name,
                                     'timezone' => $surfArea->timezone,
-                                    'latitude' => isset($surfArea->coordinates->lat) ? $surfArea->coordinates->lat : 0.0,
-                                    'longitude' => isset($surfArea->coordinates->lon) ? $surfArea->coordinates->lon : 0.0,
+                                    'latitude' => isset($surfArea->coordinates->lat) ? $surfArea->coordinates->lat : 0,
+                                    'longitude' => isset($surfArea->coordinates->lon) ? $surfArea->coordinates->lon : 0,
                                 ]
                             );
 
@@ -235,7 +241,7 @@ class MswClient
         try {
             //TODO, get this from a repository?
             $surfArea = $surfArea = MswSurfArea::where('name', $surfArea)->first();
-            if($surfArea) {
+            if ($surfArea) {
                 //The NE -> SW calc gives us +- 400km2 which should have all the spots in the area
                 $args = [
                     'ne' => ($surfArea->getLatitude() + 1).','.($surfArea->getLongitude() + 1),
@@ -243,13 +249,17 @@ class MswClient
                     'limit' => -1,
                 ];
 
-                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/spot?'.http_build_query($args));
+                $response = $this->client->request(
+                    'GET',
+                    'https://magicseaweed.com/api/'.$this->mswApiKey.'/spot?'.http_build_query($args)
+                );
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
                         foreach ($body as $spot) {
-                            //the GPS area calcs means we probably will get spots in that aren't in this specific surf area, ignore them
-                            if($surfArea->getid() == $spot->surfAreaId) {
+                            // The GPS area calcs means we probably will get spots in that aren't in this specific surf
+                            // area and we can ignore them
+                            if ($surfArea->getid() == $spot->surfAreaId) {
                                 $model = (new MswSpot())->updateOrCreate(
                                     [
                                         'id' => $spot->_id,
@@ -286,59 +296,63 @@ class MswClient
     {
         $forecasts = new Collection();
 
-        if($mswSpot = MswSpot::find($mswSpotId)) {
+        if ($mswSpot = MswSpot::find($mswSpotId)) {
             try {
-                $response = $this->client->request('GET', 'https://magicseaweed.com/api/'.$this->mswApiKey.'/forecast/?spot_id='.$mswSpot->getId().'&units=uk');
+                $response = $this->client->request(
+                    'GET',
+                    'https://magicseaweed.com/api/'.$this->mswApiKey.'/forecast/?spot_id='.$mswSpot->getId().'&units=uk'
+                );
 
                 if ($response->getStatusCode() === 200) {
                     if ($body = json_decode($response->getBody()->getContents())) {
-                            foreach($body as $forecast) {
-                                $model = (new MswForecast())->updateOrCreate(
-                                    [
-                                        'msw_spot_id' => $mswSpot->getId(),
-                                        'localTimestamp' => $forecast->localTimestamp,
-                                    ],
-                                    [
-                                        'msw_spot_id' => $mswSpot->getId(),
-                                        'timestamp' => $forecast->timestamp,
-                                        'localTimestamp' => $forecast->localTimestamp,
-                                        'issueTimestamp' => $forecast->issueTimestamp,
-                                        'gfsIssueTimestamp' => $forecast->gfsIssueTimestamp,
-                                        'threeHourTimeText' => $forecast->threeHourTimeText,
+                        foreach ($body as $forecast) {
+                            $model = (new MswForecast())->updateOrCreate(
+                                [
+                                    'msw_spot_id' => $mswSpot->getId(),
+                                    'localTimestamp' => $forecast->localTimestamp,
+                                ],
+                                [
+                                    'msw_spot_id' => $mswSpot->getId(),
+                                    'timestamp' => $forecast->timestamp,
+                                    'localTimestamp' => $forecast->localTimestamp,
+                                    'issueTimestamp' => $forecast->issueTimestamp,
+                                    'gfsIssueTimestamp' => $forecast->gfsIssueTimestamp,
+                                    'threeHourTimeText' => $forecast->threeHourTimeText,
 
-                                        'fadedRating' => $forecast->fadedRating,
-                                        'solidRating' => $forecast->solidRating,
+                                    'fadedRating' => $forecast->fadedRating,
+                                    'solidRating' => $forecast->solidRating,
 
-                                        'swell_minBreakingHeight' => $forecast->swell->minBreakingHeight,
-                                        'swell_absMinBreakingHeight' => $forecast->swell->absMinBreakingHeight,
-                                        'swell_maxBreakingHeight' => $forecast->swell->maxBreakingHeight,
-                                        'swell_absMaxBreakingHeight' => $forecast->swell->absMaxBreakingHeight,
-                                        'swell_primary_height' => $forecast->swell->components->primary->height,
-                                        'swell_primary_absHeight' => $forecast->swell->components->primary->absHeight,
-                                        'swell_primary_period' => $forecast->swell->components->primary->period,
-                                        'swell_primary_direction' => $forecast->swell->components->primary->direction,
-                                        'swell_primary_trueDirection' => $forecast->swell->components->primary->trueDirection,
-                                        'swell_primary_compassDirection' => $forecast->swell->components->primary->compassDirection,
+                                    'swell_minBreakingHeight' => $forecast->swell->minBreakingHeight,
+                                    'swell_absMinBreakingHeight' => $forecast->swell->absMinBreakingHeight,
+                                    'swell_maxBreakingHeight' => $forecast->swell->maxBreakingHeight,
+                                    'swell_absMaxBreakingHeight' => $forecast->swell->absMaxBreakingHeight,
+                                    'swell_primary_height' => $forecast->swell->components->primary->height,
+                                    'swell_primary_absHeight' => $forecast->swell->components->primary->absHeight,
+                                    'swell_primary_period' => $forecast->swell->components->primary->period,
+                                    'swell_primary_direction' => $forecast->swell->components->primary->direction,
+                                    'swell_primary_trueDirection' =>
+                                        $forecast->swell->components->primary->trueDirection,
+                                    'swell_primary_compassDirection' =>
+                                        $forecast->swell->components->primary->compassDirection,
 
-                                        'wind_speed' => $forecast->wind->speed,
-                                        'wind_direction' => $forecast->wind->direction,
-                                        'wind_trueDirection' => $forecast->wind->trueDirection,
-                                        'wind_compassDirection' => $forecast->wind->compassDirection,
-                                        'wind_gusts' => $forecast->wind->gusts,
-                                        'wind_unit' => $forecast->wind->unit,
-                                        'wind_rating' => $forecast->wind->rating,
-                                        'wind_stringDirection' => $forecast->wind->stringDirection,
-                                    ]
-                                );
+                                    'wind_speed' => $forecast->wind->speed,
+                                    'wind_direction' => $forecast->wind->direction,
+                                    'wind_trueDirection' => $forecast->wind->trueDirection,
+                                    'wind_compassDirection' => $forecast->wind->compassDirection,
+                                    'wind_gusts' => $forecast->wind->gusts,
+                                    'wind_unit' => $forecast->wind->unit,
+                                    'wind_rating' => $forecast->wind->rating,
+                                    'wind_stringDirection' => $forecast->wind->stringDirection,
+                                ]
+                            );
 
-                                $forecasts->add($model);
-                            }
+                            $forecasts->add($model);
+                        }
                     }
                 }
             } catch (\Exception $e) {
                 // Blank blocks are bad, mmmkay
             }
-
         }
 
         return $forecasts;
@@ -347,8 +361,7 @@ class MswClient
     public function autoImportForecast()
     {
         //Make sure the file we use to store where the we are with importing is created
-        if(!\Storage::disk('local')->exists('auto-import'))
-        {
+        if (!\Storage::disk('local')->exists('auto-import')) {
             file_put_contents(storage_path('app/auto-import'), '');
         }
 
@@ -367,7 +380,7 @@ class MswClient
 
         $spots = MswSpot::where('msw_surf_area_id', $nextSurfArea->id)->get();
 
-        $spots->each(function(MswSpot $mswSpot) {
+        $spots->each(function (MswSpot $mswSpot) {
             $this->importForecast($mswSpot->id);
         });
 

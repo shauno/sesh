@@ -52,7 +52,7 @@ class MswImportSpots extends Command
         foreach ($spots as $area) {
             if ($area->getChanges()) {
                 $updated++;
-            } else if($area->wasRecentlyCreated) {
+            } elseif ($area->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

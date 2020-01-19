@@ -54,7 +54,7 @@ class MswImportRegions extends Command
         foreach ($regions as $region) {
             if ($region->getChanges()) {
                 $updated++;
-            } else if($region->wasRecentlyCreated) {
+            } elseif ($region->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/shauno/sesh.svg?branch=master)](https://travis-ci.org/shauno/sesh)
 ![](https://github.com/shauno/sesh/workflows/PHPStan/badge.svg)
+![](https://github.com/shauno/sesh/workflows/PHP%20CS/badge.svg)
 
 The source code for the rewritten sesh.co.za website.
 
@@ -41,8 +42,13 @@ to `.env` and setting them is the simplest especially in dev.
 
 ### Run Test Suite
 After following the setup steps above you should be able to run the test
-suite \
-`$ docker-compose exec app vendor/bin/phpunit`
+and code quality suites:
+- Tests: \
+  `$ docker-compose exec app vendor/bin/phpunit`
+- PHPStan Static Analysis: \
+  `$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-code-quality:latest php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app tests`
+- PHP CS Code Style (PSR2): \
+  `$ docker run -it --rm -v "$PWD":/app -w /app adamculp/php-code-quality:latest php /usr/local/lib/php-code-quality/vendor/bin/phpcs`
 
 ### Import Regional Data
 

@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
             return new GuzzleHttpClient();
         });
 
-        $this->app->bind('Sesh\Msw\MswClient', function() {
+        $this->app->bind('Sesh\Msw\MswClient', function () {
             return new MswClient(new GuzzleHttpClient(), getenv('MSW_API_KEY'));
         });
     }

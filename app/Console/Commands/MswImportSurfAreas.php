@@ -52,7 +52,7 @@ class MswImportSurfAreas extends Command
         foreach ($surfAreas as $area) {
             if ($area->getChanges()) {
                 $updated++;
-            } else if($area->wasRecentlyCreated) {
+            } elseif ($area->wasRecentlyCreated) {
                 $new++;
             } else {
                 $unchanged++;

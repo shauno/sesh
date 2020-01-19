@@ -58,10 +58,11 @@ class Create
         ]);
 
         if ($forecast = $this->mswForecastRepo->findForSurf($surf)) {
-           $surf->msw_forecast_id = $forecast->id;
+            $surf->msw_forecast_id = $forecast->id;
         }
 
-        if($surf->save() && isset($data['photo']) && $data['photo'] instanceof UploadedFile) { //TODO, document this, or improve it :)
+        //TODO, document this, or improve it :)
+        if ($surf->save() && isset($data['photo']) && $data['photo'] instanceof UploadedFile) {
             $path = $data['photo']->store('surfs/'.date('Y/m/d'));
 
             $surf->photos()->create(
