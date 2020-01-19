@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: adamculp/php-code-quality:latest
-    volumes:
-      - ./:/app
+      volumes:
+        - ./:/app
     steps:
       - name: Analyse
         run: php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
