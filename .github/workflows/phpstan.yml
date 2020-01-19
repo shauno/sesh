@@ -1,7 +1,12 @@
 name: PHPStan
 on: [push]
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
   analyse:
+    needs: build
     name: Analyse
     runs-on: ubuntu-latest
 #    container:
