@@ -12,6 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Analyse
-        #run: php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
         run: |
-          composer
+          composer install
+          php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
