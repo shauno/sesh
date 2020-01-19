@@ -1,0 +1,12 @@
+name: PHPStan
+on: [push]
+jobs:
+  analyse:
+    name: Analyse
+    runs-on: ubuntu-latest
+    container:
+      image: adamculp/php-code-quality:latest
+    steps:
+      - name: Analyse
+        uses: docker://adamculp/php-code-quality:latest
+        run: php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
