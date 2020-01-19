@@ -1,6 +1,7 @@
 # Sesh.co.za
 
 [![Build Status](https://travis-ci.org/shauno/sesh.svg?branch=master)](https://travis-ci.org/shauno/sesh)
+![](https://github.com/shauno/sesh/workflows/.github/workflows/phpstan.yml/badge.svg)
 
 The source code for the rewritten sesh.co.za website.
 
