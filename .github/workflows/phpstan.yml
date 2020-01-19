@@ -10,4 +10,6 @@ jobs:
         - ./:/app
     steps:
       - name: Analyse
-        run: php /usr/local/lib/php-code-quality/vendor/bin/phpstan analyse app
+        run: |
+          pwd
+          ls -l
