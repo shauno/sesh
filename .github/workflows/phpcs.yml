@@ -14,4 +14,4 @@ jobs:
       - name: PHP CS
         run: |
           composer install
-          php /usr/local/lib/php-code-quality/vendor/bin/phpcs app test
+          php /usr/local/lib/php-code-quality/vendor/bin/phpcs app tests
