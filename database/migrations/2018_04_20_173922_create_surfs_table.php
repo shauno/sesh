@@ -25,7 +25,14 @@ class CreateSurfsTable extends Migration
             $table->integer('date_end');
             $table->smallInteger('swell_size');
             $table->smallInteger('wind_speed');
-            $table->string('wind_direction');
+
+            /**
+             * This column was orignall created as a string and then later changed to an int. But sqlite doens't like
+             * the migration to change the column type, so just changing it on creation. Obviously existing system have
+             * already run the alter and new system won't have string data to worry about. The seeders are also updated
+             * to set ints
+             */
+            $table->smallInteger('wind_direction');
             $table->timestamps();
         });
     }

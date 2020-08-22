@@ -13,6 +13,7 @@ class UpdateSurfsWindDirectionToIntegers extends Migration
      */
     public function up()
     {
+        // This is only for user data, the seeders have been updated to enter the correct values
         DB::statement('
           UPDATE `surfs` SET `wind_direction` = 
             CASE
@@ -41,9 +42,11 @@ class UpdateSurfsWindDirectionToIntegers extends Migration
      */
     public function down()
     {
-        Schema::table('surfs', function(Blueprint $table) {
-            $table->string('wind_direction')->change();
-        });
+        if (DB::getDriverName() != 'sqlite') {
+            Schema::table('surfs', function (Blueprint $table) {
+                $table->string('wind_direction')->change();
+            });
+        }
 
         DB::statement('
           UPDATE `surfs` SET `wind_direction` = 
