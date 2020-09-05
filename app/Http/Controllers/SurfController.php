@@ -47,38 +47,4 @@ class SurfController extends Controller
             return response($exception->errors(), 400);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Surf  $surf
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Surf $surf)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Surf  $surf
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Surf $surf)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Surf  $surf
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Surf $surf)
-    {
-        //
-    }
 }
