@@ -12,19 +12,6 @@ use Illuminate\Support\Facades\DB;
 class SurfRepository
 {
     /**
-     * @param Guard $user
-     * @param int $limit
-     * @return Collection|Surf[]
-     */
-    public function findAllForUser(Guard $user, int $limit = 5) : Collection
-    {
-        return (new Surf())
-            ->where('user_id', $user->id())
-            ->limit($limit)
-            ->get();
-    }
-
-    /**
      * TODO really need to clean this up :(
      *
      * @param Collection|Spot[] $spots

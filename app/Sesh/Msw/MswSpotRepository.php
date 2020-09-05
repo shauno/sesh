@@ -9,15 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 class MswSpotRepository
 {
     /**
-     * @param int $id
-     * @return MswSpot
-     */
-    public function find(int $id) : MswSpot
-    {
-        return (new MswSpot())->find($id);
-    }
-
-    /**
      * @param MswCountry $mswCountry
      * @return \Illuminate\Database\Eloquent\Collection|MswSpot[]
      */

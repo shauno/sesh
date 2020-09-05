@@ -12,18 +12,6 @@ use Sesh\Surfs\SurfRepository;
 class SurfController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param SurfRepository $surfRepository
-     * @param Guard $user
-     * @return \Illuminate\Http\Response
-     */
-    public function index(SurfRepository $surfRepository, Guard $user)
-    {
-        return $surfRepository->findAllForUser($user, 5);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
