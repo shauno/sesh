@@ -40,38 +40,4 @@ class SpotController extends Controller
             return response($exception->errors(), 400);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Spot  $spot
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Spot $spot)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Spot  $spot
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Spot $spot)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Spot  $spot
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Spot $spot)
-    {
-        //
-    }
 }

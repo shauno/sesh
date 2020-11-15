@@ -2,13 +2,11 @@
 
 namespace Sesh\Surfs;
 
-use App\Photo;
 use App\Surf;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
 use Sesh\Msw\MswForecastRepository;
-use Sesh\Msw\MswSpotRepository;
 use Sesh\Spots\SpotRepository;
 
 class Create
