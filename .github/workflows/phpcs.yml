@@ -6,8 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: adamculp/php-code-quality:latest
-      volumes:
-        - $(pwd):/app
     steps:
       - name: Checkout
         uses: actions/checkout@v2
