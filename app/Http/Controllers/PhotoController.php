@@ -46,7 +46,6 @@ class PhotoController extends Controller
      * @param Photo $photo
      * @param Guard $user
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function render(Photo $photo, Guard $user)
     {
