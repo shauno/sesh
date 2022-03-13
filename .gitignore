@@ -8,6 +8,7 @@
 _ide_helper.php
 /.vscode
 /.vagrant
+/build
 Homestead.json
 Homestead.yaml
 npm-debug.log
