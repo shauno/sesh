@@ -1,5 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use DB;
+use Hash;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
